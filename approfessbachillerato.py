@@ -24,7 +24,25 @@ def cargar_listado():
     df = pd.read_excel(BytesIO(response.content), sheet_name='g')
     df['GRADO'] = df['GRADO'].astype(str)
     df['ESTUDIANTE'] = df['ESTUDIANTE'].apply(corregir_nombre)
+    df.loc[df['ESTUDIANTE'] == 'YARURO FONSECA JUAN ANTONIO', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'ACOSTA CASTAÑEDA JUAN CARLOS', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'ELVIRA DUARTE SARAH', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'MEDINA USECHE ANTONIO JOSÉ', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'OLAYA GONZÁLEZ CHRISTOPHER', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'PALMA ESTRADA JOSE MIGUEL', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'RÍOS LUGO JUAN DIEGO', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'VILLAMÍL GUANCHÉZ AMANDA ISABEL', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'YANDÚM BAUTISTA ANDRÉS FELIPE', 'GRADO'] = '6'
     df = df[df['GRADO'].isin(['6','7','8','9','10','11'])]
+    df.loc[df['ESTUDIANTE'] == 'YARURO FONSECA JUAN ANTONIO', 'GRADO'] = '5'
+    df.loc[df['ESTUDIANTE'] == 'ACOSTA CASTAÑEDA JUAN CARLOS', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'ELVIRA DUARTE SARAH', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'MEDINA USECHE ANTONIO JOSÉ', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'OLAYA GONZÁLEZ CHRISTOPHER', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'PALMA ESTRADA JOSE MIGUEL', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'RÍOS LUGO JUAN DIEGO', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'VILLAMÍL GUANCHÉZ AMANDA ISABEL', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'YANDÚM BAUTISTA ANDRÉS FELIPE', 'GRADO'] = '4'
     return df
 
 
@@ -189,7 +207,7 @@ with col1:
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
-                    if grado_actual in ['6','7']:
+                    if grado_actual in ['4','5''6','7']:
                         notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_6_7))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
@@ -256,7 +274,7 @@ with col1:
                     
                 for bloque in bloques:
                     notas_bloque = notas_estudiante[notas_estudiante.iloc[:, 6] == bloque]
-                    if grado_actual in ['6','7']:
+                    if grado_actual in ['4','5','6','7']:
                         notas_bloque_filtradas = notas_bloque[notas_bloque.iloc[:, 5].isin(materias_especificas_6_7)]
                         longitud_bloque = len(notas_bloque_filtradas)
                         if longitud_bloque == 30 and not desempeno_encontrado:
@@ -339,7 +357,7 @@ with col1:
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
-                    if grado_actual in ['6','7','8','9','10']:
+                    if grado_actual in ['4','5','6','7','8','9','10']:
                         notas_bloque_ciencias = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(asignaturas))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_ciencias) == 20):
                             desempeno_encontrado = True
@@ -393,7 +411,7 @@ with col1:
                     
                     notas_bloque = notas_estudiante[notas_estudiante.iloc[:, 6] == bloque]
                     
-                    if grado_actual in ['6','7','8','9','10']:
+                    if grado_actual in ['4','5','6','7','8','9','10']:
                         notas_bloque_filtradas = notas_bloque[notas_bloque.iloc[:, 5].isin(asignaturas)]
                         longitud_bloque = len(notas_bloque_filtradas)
                         if longitud_bloque == 20 and not desempeno_encontrado:
@@ -449,7 +467,7 @@ with col1:
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
-                    if grado_actual in ['6','7','8','9']:
+                    if grado_actual in ['4','5','6','7','8','9']:
                         notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_6_7_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_sociales) == 20):
                             desempeno_encontrado = True
@@ -512,7 +530,7 @@ with col1:
                     notas_bloque = notas_estudiante[notas_estudiante.iloc[:, 6] == bloque]
                     
                     
-                    if grado_actual in ['6','7','8','9']:
+                    if grado_actual in ['4','5','6','7','8','9']:
                         notas_bloque_filtradas = notas_bloque[notas_bloque.iloc[:, 5].isin(materias_especificas_6_7_8_9)]
                         longitud_bloque = len(notas_bloque_filtradas)
                         if longitud_bloque == 20 and not desempeno_encontrado:
@@ -568,7 +586,7 @@ with col1:
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
-                    if grado_actual in ['6','7','8','9']:
+                    if grado_actual in ['4','5','6','7','8','9']:
                         notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_6_7_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_sociales) == 20):
                             desempeno_encontrado = True
@@ -630,7 +648,7 @@ with col1:
                     notas_bloque = notas_estudiante[notas_estudiante.iloc[:, 6] == bloque]
                     
                     
-                    if grado_actual in ['6','7','8','9']:
+                    if grado_actual in ['4','5','6','7','8','9']:
                         notas_bloque_filtradas = notas_bloque[notas_bloque.iloc[:, 5].isin(materias_especificas_6_7_8_9)]
                         longitud_bloque = len(notas_bloque_filtradas)
                         if longitud_bloque == 20 and not desempeno_encontrado:
@@ -685,7 +703,7 @@ with col1:
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
-                    if grado_actual in ['6','7','8','9']:
+                    if grado_actual in ['4','5','6','7','8','9']:
                         notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(asignaturas_6_7_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_lenguaje) == 10):
                             desempeno_encontrado = True
@@ -739,7 +757,7 @@ with col1:
                     
                 for bloque in bloques:
                     notas_bloque = notas_estudiante[notas_estudiante.iloc[:, 6] == bloque]
-                    if grado_actual in ['6','7','8','9']:
+                    if grado_actual in ['4','5','6','7','8','9']:
                         notas_bloque_filtradas = notas_bloque[notas_bloque.iloc[:, 5].isin(asignaturas_6_7_8_9)]
                         longitud_bloque = len(notas_bloque_filtradas)
                         if longitud_bloque == 10 and not desempeno_encontrado:
@@ -808,7 +826,7 @@ with col2:
 
         #aqui se crea el f5 de acuerdo al area si el grado es sexto o septimo
 
-        if grado in ['6', '7'] and area_seleccionada in ['C1', 'C2']:
+        if grado in ['4','5','6', '7'] and area_seleccionada in ['C1', 'C2']:
             F5_2 = pd.DataFrame(np.full((len(ciencias_6_7), 20), "", dtype=str), index=ciencias_6_7, columns= columnas_personalizadas)
             largo = {}
             for asignatura,_ in F5_2.iterrows():
@@ -820,7 +838,7 @@ with col2:
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
             notas_año = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado)]
 
-        if grado in ['6', '7'] and area_seleccionada in ['S1', 'S2']:
+        if grado in ['4','5','6', '7'] and area_seleccionada in ['S1', 'S2']:
             F5_2 = pd.DataFrame(np.full((len(sociales_6_7), 20), "", dtype=str), index=sociales_6_7, columns= columnas_personalizadas)
             largo = {}
             for asignatura,_ in F5_2.iterrows():
@@ -832,7 +850,7 @@ with col2:
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
             notas_año = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado)]
 
-        if grado in ['6','7'] and area_seleccionada == 'L':
+        if grado in ['4','5','6','7'] and area_seleccionada == 'L':
             F5_2 = pd.DataFrame(np.full((len(lenguaje_6_7), 20), "", dtype=str), index=lenguaje_6_7, columns= columnas_personalizadas)
             largo = {}
             for asignatura,_ in F5_2.iterrows():
@@ -844,7 +862,7 @@ with col2:
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
             notas_año = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado)]
 
-        if grado in ['6', '7'] and area_seleccionada in ['M1', 'M2']:
+        if grado in ['4','5','6', '7'] and area_seleccionada in ['M1', 'M2']:
             F5_2 = pd.DataFrame(np.full((len(matemati_6_7), 20), "", dtype=str), index=matemati_6_7, columns= columnas_personalizadas)
             largo = {}
             for asignatura,_ in F5_2.iterrows():
@@ -1011,6 +1029,7 @@ with col2:
 
     st.subheader("Notas")
     st.write(F5_2)
+
 
 
 
