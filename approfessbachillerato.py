@@ -190,24 +190,24 @@ with col1:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
                     if grado_actual in ['6','7']:
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_6_7))
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_6_7))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
                     if grado_actual in ['8','9']:
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_8_9))
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '10' :
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10))
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '11' :
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10))
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
@@ -916,6 +916,7 @@ with col2:
 
     st.subheader("Notas")
     st.write(F5_2)
+
 
 
 
