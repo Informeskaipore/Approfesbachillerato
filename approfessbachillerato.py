@@ -16,7 +16,7 @@ url_excel_planeacion = 'https://gkinnova-my.sharepoint.com/:x:/g/personal/manuel
 url_excel_listado = 'https://gkinnova-my.sharepoint.com/:x:/g/personal/manuela_gutierrez_gimnasiokaipore_com/EW47uW_fJFtInsbP1zH_30gBdsFrR5Asr0ouwkvcoqEmXA?download=1'
 
 
-ingles = ['Inglés - listening','Inglés - speaking','Inglés - writing', 'Inglés - reading', 'Animaplanos']
+ingles = ['Inglés - listening','Inglés - speaking','Inglés - writing', 'Inglés - reading']
 
 def cargar_listado():
     response = requests.get(url_excel_listado)
@@ -57,24 +57,24 @@ notas['ESTUDIANTE'] = notas['ESTUDIANTE'].apply(corregir_nombre)
 asignaturas_6_7= ['Biología','Química','Medio ambiente','Física',
                   'Historia', 'Geografía', 'Participación política','Filosofía',
                   'Comunicación y sistemas simbólicos','Producción e interpretación de textos',
-                  'Aritmética','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
+                  'Aritmética','Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
 
 ciencias_6_7  = ['Biología','Química','Medio ambiente','Física']
 sociales_6_7  = ['Historia', 'Geografía', 'Participación política','Filosofía']
 lenguaje_6_7  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos']
-matemati_6_7  = ['Aritmética','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
+matemati_6_7  = ['Aritmética','Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
 
 ######################################################################################################################################
 
 asignaturas_8_9= ['Biología','Química','Medio ambiente','Física',
                   'Historia', 'Geografía', 'Participación política','Filosofía',
                   'Comunicación y sistemas simbólicos','Producción e interpretación de textos',
-                  'Álgebra', 'Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
+                  'Álgebra', 'Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
 
 ciencias_8_9  = ['Biología','Química','Medio ambiente','Física']
 sociales_8_9  = ['Historia', 'Geografía', 'Participación política','Filosofía']
 lenguaje_8_9  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos']
-matemati_8_9  = ['Álgebra', 'Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
+matemati_8_9  = ['Álgebra','Animaplanos', 'Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
 
 ######################################################################################################################################
 
@@ -82,12 +82,12 @@ matemati_8_9  = ['Álgebra', 'Estadística', 'Geometría', 'Dibujo técnico', 'S
 asignaturas_10=  ['Biología','Química','Medio ambiente','Física',
                   'Ciencias económicas', 'Ciencias políticas','Filosofía',
                   'Comunicación y sistemas simbólicos','Producción e interpretación de textos',
-                  'Trigonometría', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
+                  'Trigonometría','Animaplanos', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
 
 ciencias_10  = ['Biología','Química','Medio ambiente','Física']
 sociales_10  = ['Ciencias económicas', 'Ciencias políticas','Filosofía']
 lenguaje_10  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología']
-matemati_10  = ['Trigonometría', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
+matemati_10  = ['Trigonometría','Animaplanos', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
 
 ######################################################################################################################################
 asignaturas_11=  ['Química','Medio ambiente','Física',
@@ -98,7 +98,7 @@ asignaturas_11=  ['Química','Medio ambiente','Física',
 ciencias_11  = ['Química','Medio ambiente','Física']
 sociales_11  = ['Ciencias económicas', 'Ciencias políticas','Filosofía']
 lenguaje_11  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología']
-matemati_11  = ['Cálculo','Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
+matemati_11  = ['Cálculo','Animaplanos','Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
 
 ##################################################################################################################
 
@@ -177,13 +177,13 @@ with col1:
                     desempeno_encontrado = True
                     continue 
                 
-                materias_especificas_6_7 = ['Aritmética', 'Geometría', 'Estadística', 'Dibujo técnico', 'Sistemas']
-                materias_especificas_8_9 = ['Álgebra', 'Geometría', 'Estadística', 'Dibujo técnico', 'Sistemas']
-                materias_especificas_10 =  ['Trigonometría', 'Matemática financiera', 'Estadística', 'Dibujo técnico', 'Sistemas']
-                materias_especificas_11 =  ['Cálculo', 'Matemática financiera', 'Estadística', 'Dibujo técnico', 'Sistemas']
+                materias_especificas_6_7 = ['Aritmética','Animaplanos','Geometría', 'Estadística', 'Dibujo técnico', 'Sistemas']
+                materias_especificas_8_9 = ['Álgebra','Animaplanos', 'Geometría', 'Estadística', 'Dibujo técnico', 'Sistemas']
+                materias_especificas_10 =  ['Trigonometría','Animaplanos', 'Matemática financiera', 'Estadística', 'Dibujo técnico', 'Sistemas']
+                materias_especificas_11 =  ['Cálculo','Animaplanos', 'Matemática financiera', 'Estadística', 'Dibujo técnico', 'Sistemas']
                     
                 bloques = ['A', 'B', 'C', 'D']
-                asignaturas = ['Aritmética', 'Geometría','Matemática financiera', 'Álgebra', 'Estadística', 'Dibujo técnico', 'Sistemas','Trigonometría','Cálculo']
+                asignaturas = ['Aritmética', 'Animaplanos','Geometría','Matemática financiera', 'Álgebra', 'Estadística', 'Dibujo técnico', 'Sistemas','Trigonometría','Cálculo']
 
 
                 for materia in asignaturas:
@@ -229,9 +229,9 @@ with col1:
                     if grado_actual in ['6','7']:
                         notas_bloque_filtradas = notas_bloque[notas_bloque.iloc[:, 5].isin(materias_especificas_6_7)]
                         longitud_bloque = len(notas_bloque_filtradas)
-                        if longitud_bloque == 25 and not desempeno_encontrado:
+                        if longitud_bloque == 30 and not desempeno_encontrado:
                             continue 
-                        if longitud_bloque < 25 and not desempeno_encontrado:
+                        if longitud_bloque < 30 and not desempeno_encontrado:
                             for materia in materias_especificas_6_7:
                                 if materia not in notas_bloque_filtradas.iloc[:, 5].values:
                                     df_bloque.iloc[i] = bloque
@@ -243,10 +243,10 @@ with col1:
                     if grado_actual in ['8','9']:
                         notas_bloque_filtradas = notas_bloque[notas_bloque.iloc[:, 5].isin(materias_especificas_8_9)]
                         longitud_bloque = len(notas_bloque_filtradas)
-                        if longitud_bloque == 25 and not desempeno_encontrado:
+                        if longitud_bloque == 30 and not desempeno_encontrado:
                             continue 
             
-                        if longitud_bloque < 25 and not desempeno_encontrado:
+                        if longitud_bloque < 30 and not desempeno_encontrado:
                             for materia in materias_especificas_8_9:
                                 if materia not in notas_bloque_filtradas.iloc[:, 5].values:
                                     df_bloque.iloc[i] = bloque
@@ -258,10 +258,10 @@ with col1:
                     if grado_actual == '10':
                         notas_bloque_filtradas = notas_bloque[notas_bloque.iloc[:, 5].isin(materias_especificas_10)]
                         longitud_bloque = len(notas_bloque_filtradas)
-                        if longitud_bloque == 25 and not desempeno_encontrado:
+                        if longitud_bloque == 30 and not desempeno_encontrado:
                             continue 
             
-                        if longitud_bloque < 25 and not desempeno_encontrado:
+                        if longitud_bloque < 30 and not desempeno_encontrado:
                             for materia in materias_especificas_10:
                                 if materia not in notas_bloque_filtradas.iloc[:, 5].values:
                                     df_bloque.iloc[i] = bloque
@@ -273,10 +273,10 @@ with col1:
                     if grado_actual == '11':
                         notas_bloque_filtradas = notas_bloque[notas_bloque.iloc[:, 5].isin(materias_especificas_11)]
                         longitud_bloque = len(notas_bloque_filtradas)
-                        if longitud_bloque == 25 and not desempeno_encontrado:
+                        if longitud_bloque == 30 and not desempeno_encontrado:
                             continue 
             
-                        if longitud_bloque < 25 and not desempeno_encontrado:
+                        if longitud_bloque < 30 and not desempeno_encontrado:
                             for materia in materias_especificas_11:
                                 if materia not in notas_bloque_filtradas.iloc[:, 5].values:
                                     df_bloque.iloc[i] = bloque
@@ -886,3 +886,4 @@ with col2:
 
     st.subheader("Notas")
     st.write(F5_2)
+
