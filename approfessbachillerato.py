@@ -25,24 +25,24 @@ def cargar_listado():
     df['GRADO'] = df['GRADO'].astype(str)
     df['ESTUDIANTE'] = df['ESTUDIANTE'].apply(corregir_nombre)
     df.loc[df['ESTUDIANTE'] == 'YARURO FONSECA JUAN ANTONIO', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'ACOSTA CASTAÑEDA JUAN CARLOS', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'ACOSTA CASTANEDA JUAN CARLOS', 'GRADO'] = '6'
     df.loc[df['ESTUDIANTE'] == 'ELVIRA DUARTE SARAH', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'MEDINA USECHE ANTONIO JOSÉ', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'OLAYA GONZÁLEZ CHRISTOPHER', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'MEDINA USECHE ANTONIO JOSE', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'OLAYA GONZALEZ CHRISTOPHER', 'GRADO'] = '6'
     df.loc[df['ESTUDIANTE'] == 'PALMA ESTRADA JOSE MIGUEL', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'RÍOS LUGO JUAN DIEGO', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'VILLAMÍL GUANCHÉZ AMANDA ISABEL', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'YANDÚM BAUTISTA ANDRÉS FELIPE', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'RIOS LUGO JUAN DIEGO', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'VILLAMIL GUANCHEZ AMANDA ISABEL', 'GRADO'] = '6'
+    df.loc[df['ESTUDIANTE'] == 'YANDUM BAUTISTA ANDRES FELIPE', 'GRADO'] = '6'
     df = df[df['GRADO'].isin(['6','7','8','9','10','11'])]
     df.loc[df['ESTUDIANTE'] == 'YARURO FONSECA JUAN ANTONIO', 'GRADO'] = '5'
-    df.loc[df['ESTUDIANTE'] == 'ACOSTA CASTAÑEDA JUAN CARLOS', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'ACOSTA CASTANEDA JUAN CARLOS', 'GRADO'] = '4'
     df.loc[df['ESTUDIANTE'] == 'ELVIRA DUARTE SARAH', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'MEDINA USECHE ANTONIO JOSÉ', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'OLAYA GONZÁLEZ CHRISTOPHER', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'MEDINA USECHE ANTONIO JOSE', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'OLAYA GONZALEZ CHRISTOPHER', 'GRADO'] = '4'
     df.loc[df['ESTUDIANTE'] == 'PALMA ESTRADA JOSE MIGUEL', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'RÍOS LUGO JUAN DIEGO', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'VILLAMÍL GUANCHÉZ AMANDA ISABEL', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'YANDÚM BAUTISTA ANDRÉS FELIPE', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'RIOS LUGO JUAN DIEGO', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'VILLAMIL GUANCHEZ AMANDA ISABEL', 'GRADO'] = '4'
+    df.loc[df['ESTUDIANTE'] == 'YANDUM BAUTISTA ANDRES FELIPE', 'GRADO'] = '4'
     return df
 
 
@@ -1029,6 +1029,7 @@ with col2:
 
     st.subheader("Notas")
     st.write(F5_2)
+
 
 
 
