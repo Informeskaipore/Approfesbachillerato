@@ -784,7 +784,7 @@ with col1:
                             continue 
             
                         if longitud_bloque < 15 and not desempeno_encontrado:
-                            for materia in asignaturas_10_1:
+                            for materia in asignaturas_10_11:
                                 if materia not in notas_bloque_filtradas.iloc[:, 5].values:
                                     df_bloque.iloc[i] = bloque
                                     df_desempeño1.iloc[i] = 'X'
@@ -1034,6 +1034,7 @@ with col2:
 
     st.subheader("Notas")
     st.write(F5_2)
+
 
 
 
