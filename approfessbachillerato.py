@@ -364,7 +364,7 @@ with col1:
                             break
                     
                     if grado_actual == '11' :
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(asignaturas_11))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
@@ -1029,6 +1029,7 @@ with col2:
 
     st.subheader("Notas")
     st.write(F5_2)
+
 
 
 
