@@ -708,9 +708,14 @@ with col1:
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_lenguaje) == 10):
                             desempeno_encontrado = True
                             break
-                    if grado_actual in ['10','11']:
-                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(lenguaje_10_11))]
+                    if grado_actual in ['10']:
+                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(asignaturas_10_11))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_lenguaje) == 15):
+                            desempeno_encontrado = True
+                            break
+                    if grado_actual in ['11']:
+                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(asignaturas_10_11))]
+                        if (len(notas_bloque_completo) < 75) and (len(notas_bloque_lenguaje) == 15):
                             desempeno_encontrado = True
                             break
 
@@ -1029,6 +1034,7 @@ with col2:
 
     st.subheader("Notas")
     st.write(F5_2)
+
 
 
 
