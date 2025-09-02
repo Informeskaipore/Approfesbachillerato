@@ -2036,3 +2036,17 @@ with col2:
         bloque = st.text_input("Bloque")
         etapa = st.text_input("Etapa")
         calificacion = st.number_input("Calificación", min_value=3.6, max_value=5.0, step=0.1)
+
+        # Docente y tabla según área
+        area_info = {
+            "Sociales 1": ("ALEJANDRO M", "bachillerato_s1"),
+            "Sociales 2": ("CAMILO G", "bachillerato_s2"),
+            "Matemáticas 1": ("ALEJANDRO R", "bachillerato_m1"),
+            "Matemáticas 2": ("JORGE", "bachillerato_m2"),
+            "Lenguaje": ("CAMILA", "primaria_l"),
+            "Ciencias 1": ("SANDRA", "bachillerato_c1"),
+            "Ciencias 2": ("ANA S", "bachillerato_c2")
+        }
+
+        docente, tabla = area_info.get(area, ("Desconocido", None))
+        st.write(f"Docente asignado: {docente}")
