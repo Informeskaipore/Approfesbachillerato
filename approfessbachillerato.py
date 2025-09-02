@@ -2,7 +2,6 @@ import pandas as pd  # type: ignore
 import numpy as np  # type: ignore
 import streamlit as st
 from corregir_nombres import corregir_nombre
-import datetime
 import requests
 from io import BytesIO
 import warnings
@@ -1975,6 +1974,12 @@ with col2:
 
     # Selectbox para periodo
     periodo_seleccionado = st.selectbox("Periodo:", periodos)
+
+    # Fijar zona horaria y seleccionar fecha actual
+    bogota = pytz.timezone("America/Bogota")
+    fecha_actual = datetime.now(bogota).date()  # solo día, mes, año
+
+    st.write(f"Fecha del registro:{fecha_actual}")
 
 
 
