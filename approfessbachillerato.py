@@ -1747,6 +1747,41 @@ with col1:
         st.subheader("F1")
         st.write(df_horario)
 
+    # Diccionario de tablas según área
+    tablas_por_area = {
+        "Sociales 1": "bachillerato_s1",
+        "Sociales 2": "bachillerato_s2",
+        "Matemáticas 1": "bachillerato_m1",
+        "Matemáticas 2": "bachillerato_m2",
+        "Lenguaje": "bachillerato_l",
+        "Ciencias 1": "bachillerato_c1",
+        "Ciencias 2": "bachillerato_c2",
+        "Inglés": "bachillerato_e"  # si existe
+    }
+
+    tabla = tablas_por_area.get(area)
+
+    if tabla:
+        try:
+            conn = get_connection()
+            cursor = conn.cursor()
+            query = f"SELECT * FROM {tabla} ORDER BY fecha DESC"
+            cursor.execute(query)
+            data = cursor.fetchall()
+            cols = [desc[0] for desc in cursor.description]  # nombres de columnas
+            cursor.close()
+            conn.close()
+
+            # Mostrar la tabla en Streamlit
+            df = pd.DataFrame(data, columns=cols)
+            st.write(f"Tabla: {tabla}")
+            st.dataframe(df)
+        except Exception as e:
+            st.error(f"Ocurrió un error al cargar la tabla: {e}")
+    else:
+        st.warning("Área no válida seleccionada")
+
+
 with col2:
     # Barra de búsqueda con autocompletado
     estudiante_seleccionado = st.selectbox(
