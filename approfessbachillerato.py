@@ -7,7 +7,10 @@ import requests
 from io import BytesIO
 import warnings
 import matplotlib.pyplot as plt # type: ignore
-
+from datetime import datetime
+import pytz
+import mysql.connector
+from db_utils import get_connection 
 
 #Esta nota es para verificar llave ssh
 st.set_page_config(layout="wide")
@@ -1958,6 +1961,21 @@ with col2:
 
     st.subheader("Notas")
     st.write(F5_2)
+
+    ############################# Parte de ingresar notas
+
+    # Lista de areas
+    materias = ["Matemáticas 1","Matemáticas 2", "Lenguaje", "Inglés", "Ciencias 1","Ciencias 2", "Sociales 1", "Sociales 2"]
+
+    # Lista de periodos
+    periodos = ["Periodo 1", "Periodo 2", "Periodo 3", "Periodo 4"]
+
+    # Selectbox para materia
+    materia_seleccionada = st.selectbox("Area:", materias)
+
+    # Selectbox para periodo
+    periodo_seleccionado = st.selectbox("Periodo:", periodos)
+
 
 
 
