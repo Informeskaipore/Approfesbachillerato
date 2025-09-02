@@ -1981,7 +1981,7 @@ with col2:
     periodos = ["1", "2", "3", "4"]
 
     # Selectbox para materia
-    materia_seleccionada = st.selectbox("Area:", materias)
+    area = st.selectbox("Area:", materias)
 
     # Selectbox para periodo
     periodo_seleccionado = st.selectbox("Periodo:", periodos)
