@@ -2043,7 +2043,7 @@ with col2:
             "Sociales 2": ("CAMILO G", "bachillerato_s2"),
             "Matemáticas 1": ("ALEJANDRO R", "bachillerato_m1"),
             "Matemáticas 2": ("JORGE", "bachillerato_m2"),
-            "Lenguaje": ("CAMILA", "primaria_l"),
+            "Lenguaje": ("JULIANNA", "bachillerato_l"),
             "Ciencias 1": ("SANDRA", "bachillerato_c1"),
             "Ciencias 2": ("ANA S", "bachillerato_c2")
         }
