@@ -8,6 +8,8 @@ from io import BytesIO
 import warnings
 import matplotlib.pyplot as plt # type: ignore
 
+
+#Esta nota es para verificar llave ssh
 st.set_page_config(layout="wide")
 
 # Enlace de descarga directa 
