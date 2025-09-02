@@ -1759,7 +1759,11 @@ with col1:
         "Inglés": "bachillerato_e"  # si existe
     }
 
-    tabla = tablas_por_area.get(area)
+    
+    # Área seleccionada (ya la tienes de tu selectbox inicial)
+    area_visualizacion = st.selectbox("Selecciona un área para ver la tabla:", list(tablas_por_area.keys()))
+
+    tabla = tablas_por_area.get(area_visualizacion)
 
     if tabla:
         try:
