@@ -124,6 +124,17 @@ matemati_11  = ['Cálculo','Animaplanos','Estadística', 'Matemática financiera
 
 ##################################################################################################################
 
+##Asignaturas globales para el formulario de cargar notas
+
+ciencias_global = ['Biología','Química','Medio ambiente','Física','Metodología']
+sociales_global = ['Historia', 'Geografía', 'Participación política','Filosofía','Ciencias económicas', 'Ciencias políticas','Metodología']
+lenguaje_global = ['Pensamiento religioso','Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología']
+matematicas_global = ['Aritmética','Álgebra','Trigonometría','Cálculo','Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
+
+
+
+
+##########################################################################################
 
 col1, col2 = st.columns(2)
 
@@ -1979,19 +1990,49 @@ with col2:
     bogota = pytz.timezone("America/Bogota")
     fecha_actual = datetime.now(bogota).date()  # solo día, mes, año
 
-    st.write(f"Fecha del registro:{fecha_actual}")
+    st.write(f"Fecha del registro: {fecha_actual}")
 
 
+    # --- Lista de estudiantes y grado desde la base ---
+    conn = get_connection()
+    cursor = conn.cursor()
+    cursor.execute("SELECT estudiante, grado FROM estudiantes ORDER BY estudiante")
+    data = cursor.fetchall()
+    cursor.close()
+    conn.close()
 
+    # --- Formulario ---
+    with st.form("formulario_estudiante"):
+        # Diccionario {estudiante: grado}
+        estudiantes_dict = {row[0]: row[1] for row in data}
 
+        # Lista de estudiantes para selectbox
+        estudiante_seleccionado = st.selectbox("", list(estudiantes_dict.keys()))
 
+        # Grado automático según estudiante
+        grado = estudiantes_dict[estudiante_seleccionado]
+        st.write(f"Grado del estudiante: {grado}")
 
+        ### Asignaturas Segun el Area
 
+        if area == "Ciencias 1":
+            asignatura = st.selectbox("Asignatura", ciencias_global)
+        elif area == "Ciencias 2":
+            asignatura = st.selectbox("Asignatura", ciencias_global)
+        elif area == "Sociales 1":
+            asignatura = st.selectbox("Asignatura", sociales_global)
+        elif area == "Sociales 2":
+            asignatura = st.selectbox("Asignatura", sociales_global)
+        elif area == "Lenguaje":
+            asignatura = st.selectbox("Asignatura", lenguaje_global)
+        elif area == "Matemáticas 1":
+            asignatura = st.selectbox("Asignatura", matematicas_global)
+        elif area == "Matemáticas 2":
+            asignatura = st.selectbox("Asignatura", matematicas_global)
+        else:
+            asignatura = None  # En caso de que no se haya escogido área
 
-
-
-
-
-
-
-
+        # --- Otros campos ---
+        bloque = st.text_input("Bloque")
+        etapa = st.text_input("Etapa")
+        calificacion = st.number_input("Calificación", min_value=3.6, max_value=5.0, step=0.1)
