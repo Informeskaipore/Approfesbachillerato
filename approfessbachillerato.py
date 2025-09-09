@@ -2031,19 +2031,10 @@ with col2:
 
     st.write(f"Fecha del registro: {fecha_actual}")
 
-
-    # --- Lista de estudiantes y grado desde la base ---
-    conn = get_connection()
-    cursor = conn.cursor()
-    cursor.execute("SELECT estudiante, grado FROM estudiantes ORDER BY estudiante")
-    data = cursor.fetchall()
-    cursor.close()
-    conn.close()
-
     # --- Formulario ---
     with st.form("formulario_estudiante"):
         # Diccionario {estudiante: grado}
-        estudiantes_dict = {row[0]: row[1] for row in data}
+        estudiantes_dict = dict(zip(estudiantes["ESTUDIANTE"], estudiantes["GRADO"]))
 
         # Lista de estudiantes para selectbox
         estudiante_seleccionado = st.selectbox("", list(estudiantes_dict.keys()))
