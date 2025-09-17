@@ -103,24 +103,24 @@ matemati_8_9  = ['Álgebra','Animaplanos', 'Estadística', 'Geometría', 'Dibujo
 
 asignaturas_10=  ['Biología','Química','Medio ambiente','Física',
                   'Ciencias económicas', 'Ciencias políticas','Filosofía',
-                  'Comunicación y sistemas simbólicos','Producción e interpretación de textos',
+                  'Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología',
                   'Trigonometría','Animaplanos', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
 
-ciencias_10  = ['Biología','Química','Medio ambiente','Física']
-sociales_10  = ['Ciencias económicas', 'Ciencias políticas','Filosofía']
+ciencias_10  = ['Biología','Química','Medio ambiente','Física','Metodología']
+sociales_10  = ['Ciencias económicas', 'Ciencias políticas','Filosofía','Metodología']
 lenguaje_10  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología']
-matemati_10  = ['Trigonometría','Animaplanos', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
+matemati_10  = ['Trigonometría','Animaplanos', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas','Metodología']
 
 ######################################################################################################################################
 asignaturas_11=  ['Química','Medio ambiente','Física',
                   'Ciencias económicas', 'Ciencias políticas','Filosofía',
-                  'Comunicación y sistemas simbólicos','Producción e interpretación de textos',
+                  'Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología',
                   'Cálculo','Animaplanos', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
 
-ciencias_11  = ['Química','Medio ambiente','Física']
-sociales_11  = ['Ciencias económicas', 'Ciencias políticas','Filosofía']
+ciencias_11  = ['Química','Medio ambiente','Física','Metodología']
+sociales_11  = ['Ciencias económicas', 'Ciencias políticas','Filosofía','Metodología']
 lenguaje_11  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología']
-matemati_11  = ['Cálculo','Animaplanos','Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
+matemati_11  = ['Cálculo','Animaplanos','Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas','Metodología']
 
 ##################################################################################################################
 
@@ -129,7 +129,7 @@ matemati_11  = ['Cálculo','Animaplanos','Estadística', 'Matemática financiera
 ciencias_global = ['Biología','Química','Medio ambiente','Física','Metodología']
 sociales_global = ['Historia', 'Geografía', 'Participación política','Filosofía','Ciencias económicas', 'Ciencias políticas','Metodología']
 lenguaje_global = ['Pensamiento religioso','Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología']
-matematicas_global = ['Aritmética','Álgebra','Trigonometría','Cálculo','Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
+matematicas_global = ['Aritmética','Álgebra','Trigonometría','Cálculo','Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas','Metodología']
 
 
 
