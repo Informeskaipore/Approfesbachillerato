@@ -85,7 +85,7 @@ ciencias_6_7  = ['Biología','Química','Medio ambiente','Física']
 sociales_6_7  = ['Historia', 'Geografía', 'Participación política','Filosofía']
 lenguaje_6_7  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos']
 matemati_6_7  = ['Aritmética','Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
-sociales_4_5  = ['Historia', 'Geografía', 'Participación política','Filosofía','Pensamiento religioso']
+sociales_4_5  = ['Historia', 'Geografía', 'Participación política','Pensamiento religioso']
 lenguaje_4_5  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos','Pensamiento religioso']
 
 ######################################################################################################################################
