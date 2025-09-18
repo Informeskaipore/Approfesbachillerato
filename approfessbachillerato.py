@@ -127,7 +127,7 @@ matemati_11  = ['Cálculo','Animaplanos','Estadística', 'Matemática financiera
 ##Asignaturas globales para el formulario de cargar notas
 
 ciencias_global = ['Biología','Química','Medio ambiente','Física','Metodología']
-sociales_global = ['Historia', 'Geografía', 'Participación política','Filosofía','Ciencias económicas', 'Ciencias políticas','Metodología']
+sociales_global = ['Historia', 'Geografía', 'Participación política','Filosofía','Ciencias económicas', 'Ciencias políticas','Metodología','Pensamiento religioso']
 lenguaje_global = ['Pensamiento religioso','Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología','Pensamiento religioso']
 matematicas_global = ['Aritmética','Álgebra','Trigonometría','Cálculo','Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas','Metodología','Matemática financiera']
 
