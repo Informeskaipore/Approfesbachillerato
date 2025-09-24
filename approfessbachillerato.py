@@ -1813,7 +1813,7 @@ with col2:
     columnas_personalizadas = [f"A{i}" for i in range(1,6)] + [f"B{i}" for i in range(1,6)] + [f"C{i}" for i in range(1,6)] + [f"D{i}" for i in range(1,6)]
 
     # Procesar solo si hay selección
-    if estudiante_seleccionado and area_seleccionada in ['C1','C2','S1','S2','L','M1','M2']:
+    if estudiante_seleccionado and area_seleccionada in ['C1','C2','S1','S2','L','M1','M2','E1']:
 
         # Filtrar la base principal por el estudiante seleccionado
         grado = estudiantes.loc[estudiantes['ESTUDIANTE'] == estudiante_seleccionado, 'GRADO'].values[0]
@@ -2017,23 +2017,16 @@ with col2:
         ######################################## AQUI SE CREA EL F5 SI EL AREA ES INGLES
 
         if area_seleccionada in ['E1']:
-            F5_2 = notas_ingles
-        
-        if not(area_seleccionada in ['E1']):
-            st.write(f'el area seleccionada es {area_seleccionada}')
-
-    
-            #F5_2 = pd.DataFrame(np.full((len(ingles), 20), "", dtype=str), index=ingles, columns= columnas_personalizadas)
-            #for asignatura,_ in F5_2.iterrows():
-                #notas_asi = notas_ingles[ (notas_ingles['ESTUDIANTE'] == estudiante_seleccionado) & (notas_ingles['GRADO'] == grado) & (notas_ingles['ASIGNATURA'] == asignatura) ]
-                #notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                #notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
-                #notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                #lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
-                #F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
+            F5_2 = pd.DataFrame(np.full((len(ingles), 20), "", dtype=str), index=ingles, columns= columnas_personalizadas)
+            for asignatura,_ in F5_2.iterrows():
+                notas_asi = notas_ingles[ (notas_ingles['ESTUDIANTE'] == estudiante_seleccionado) & (notas_ingles['GRADO'] == grado) & (notas_ingles['ASIGNATURA'] == asignatura) ]
+                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.drop(columns='ETAPA_ORD')
+                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
     st.subheader("Notas")
-    st.write(notas_ingles)
     st.write(F5_2)
 
     ############################# Parte de ingresar notas
