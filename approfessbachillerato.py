@@ -2016,15 +2016,16 @@ with col2:
 
         ######################################## AQUI SE CREA EL F5 SI EL AREA ES INGLES
 
-        if grado in ['6','7','8','9','10','11'] and area_seleccionada in ['E1']:
-            F5_2 = pd.DataFrame(np.full((len(ingles), 20), "", dtype=str), index=ingles, columns= columnas_personalizadas)
-            for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas_ingles[ (notas_ingles['ESTUDIANTE'] == estudiante_seleccionado) & (notas_ingles['GRADO'] == grado) & (notas_ingles['ASIGNATURA'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
-                notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
-                F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
+        if area_seleccionada in ['E1']:
+            F5_2 = notas_ingles
+            #F5_2 = pd.DataFrame(np.full((len(ingles), 20), "", dtype=str), index=ingles, columns= columnas_personalizadas)
+            #for asignatura,_ in F5_2.iterrows():
+                #notas_asi = notas_ingles[ (notas_ingles['ESTUDIANTE'] == estudiante_seleccionado) & (notas_ingles['GRADO'] == grado) & (notas_ingles['ASIGNATURA'] == asignatura) ]
+                #notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                #notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                #notas_asi = notas_asi.drop(columns='ETAPA_ORD')
+                #lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                #F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
     st.subheader("Notas")
     st.write(F5_2)
