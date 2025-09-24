@@ -2028,8 +2028,8 @@ with col2:
                 #F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
     st.subheader("Notas")
-    st.write(F5_2)
     st.write(notas_ingles)
+    st.write(F5_2)
 
     ############################# Parte de ingresar notas
 
