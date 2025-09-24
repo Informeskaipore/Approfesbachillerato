@@ -2058,20 +2058,20 @@ with col2:
     # Lista de areas
     materias = ["Matemáticas 1","Matemáticas 2", "Lenguaje", "Inglés", "Ciencias 1","Ciencias 2", "Sociales 1", "Sociales 2"]
 
-    # Lista de periodos
-    periodos = ["1", "2", "3", "4"]
+    
 
     # Selectbox para materia
     area = st.selectbox("Area:", materias)
 
-    # Selectbox para periodo
-    periodo_seleccionado = st.selectbox("Periodo:", periodos)
+    ##################################################CAMBIAR CADA PERIODO ####################################
+    periodo_seleccionado = '4'
 
     # Fijar zona horaria y seleccionar fecha actual
     bogota = pytz.timezone("America/Bogota")
     fecha_actual = datetime.now(bogota).date()  # solo día, mes, año
 
     st.write(f"Fecha del registro: {fecha_actual}")
+    st.write(f"Periodo actual: {periodo_seleccionado}")
 
     # --- Formulario ---
     with st.form("formulario_estudiante"):
