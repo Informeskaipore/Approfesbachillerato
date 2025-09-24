@@ -2016,7 +2016,7 @@ with col2:
 
         ######################################## AQUI SE CREA EL F5 SI EL AREA ES INGLES
 
-        if area_seleccionada == 'E1':
+        if grado in ['6','7','8','9','10','11'] and area_seleccionada in ['E1']:
             F5_2 = pd.DataFrame(np.full((len(ingles), 20), "", dtype=str), index=ingles, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas_ingles[ (notas_ingles['ESTUDIANTE'] == estudiante_seleccionado) & (notas_ingles['GRADO'] == grado) & (notas_ingles['ASIGNATURA'] == asignatura) ]
