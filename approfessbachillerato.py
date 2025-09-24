@@ -2050,6 +2050,20 @@ with col2:
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
             notas_año = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado)]
 
+        ######################################## AQUI SE CREA EL F5 SI EL AREA ES INGLES
+
+        if area_seleccionada == 'E1':
+            F5_2 = pd.DataFrame(np.full((len(notas_ingles), 20), "", dtype=str), index=notas_ingles, columns= columnas_personalizadas)
+            largo = {}
+            for asignatura,_ in F5_2.iterrows():
+                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.drop(columns='ETAPA_ORD')
+                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
+            notas_año = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado)]
+
     st.subheader("Notas")
     st.write(F5_2)
 
