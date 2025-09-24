@@ -2018,6 +2018,11 @@ with col2:
 
         if area_seleccionada in ['E1']:
             F5_2 = notas_ingles
+        
+        if not(area_seleccionada in ['E1']):
+            st.write(f'el area seleccionada es {area_seleccionada}')
+
+    
             #F5_2 = pd.DataFrame(np.full((len(ingles), 20), "", dtype=str), index=ingles, columns= columnas_personalizadas)
             #for asignatura,_ in F5_2.iterrows():
                 #notas_asi = notas_ingles[ (notas_ingles['ESTUDIANTE'] == estudiante_seleccionado) & (notas_ingles['GRADO'] == grado) & (notas_ingles['ASIGNATURA'] == asignatura) ]
