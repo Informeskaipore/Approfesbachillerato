@@ -2032,7 +2032,7 @@ with col2:
     ############################# Parte de ingresar notas
 
     # Lista de areas
-    materias = ["Matemáticas 1","Matemáticas 2", "Lenguaje", "Inglés", "Ciencias 1","Ciencias 2", "Sociales 1", "Sociales 2".'Ingles']
+    materias = ["Matemáticas 1","Matemáticas 2", "Lenguaje", "Inglés", "Ciencias 1","Ciencias 2", "Sociales 1", "Sociales 2",'Ingles']
 
     
 
