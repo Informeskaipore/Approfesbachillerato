@@ -2025,8 +2025,7 @@ with col2:
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
-
-    st.dataframe(F5_2, use_container_width=True)
+                
     st.subheader("Notas")
     st.write(F5_2)
 
