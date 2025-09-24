@@ -67,7 +67,19 @@ def cargar_notas():
     df = df[~df['ASIGNATURA'].isin(ingles)]
     return df
 
+@st.cache_data
+def cargar_notas_ingles():
+    response = requests.get(url_excel)
+    response.raise_for_status()  # Lanza error si hay HTTP 403/404/500
+    df = pd.read_excel(BytesIO(response.content), sheet_name='GK2025')
+    df['GRADO'] = df['GRADO'].astype(str)
+    df['ESTUDIANTE'] = df['ESTUDIANTE'].apply(corregir_nombre)
+    df['FECHA'] = pd.to_datetime(df['FECHA'], errors='coerce')
+    df = df[df['ASIGNATURA'].isin(ingles)]
+    return df
+
 notas = cargar_notas()
+notas_ingles = cargar_notas_ingles()
 planeacion_primaria = cargar_planeacion()
 estudiantes = cargar_listado()
 
@@ -145,7 +157,7 @@ with col1:
     # Barra de búsqueda con opciones específicas
     area_seleccionada = st.selectbox(
         "Selecciona una opción:",
-        ['C1','C2', 'S1','S2', 'L', 'M1','M2']
+        ['C1','C2', 'S1','S2', 'L', 'M1','M2','E1']
     )
 
 
