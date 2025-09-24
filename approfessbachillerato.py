@@ -2025,14 +2025,14 @@ with col2:
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
-                
+
     st.subheader("Notas")
     st.write(F5_2)
 
     ############################# Parte de ingresar notas
 
     # Lista de areas
-    materias = ["Matemáticas 1","Matemáticas 2", "Lenguaje", "Inglés", "Ciencias 1","Ciencias 2", "Sociales 1", "Sociales 2"]
+    materias = ["Matemáticas 1","Matemáticas 2", "Lenguaje", "Inglés", "Ciencias 1","Ciencias 2", "Sociales 1", "Sociales 2".'Ingles']
 
     
 
@@ -2074,6 +2074,8 @@ with col2:
             asignatura = st.selectbox("Asignatura", matematicas_global)
         elif area == "Matemáticas 2":
             asignatura = st.selectbox("Asignatura", matematicas_global)
+        elif area == "Ingles":
+            asignatura = st.selectbox("Asignatura", ingles)
         else:
             asignatura = None  # En caso de que no se haya escogido área
 
@@ -2090,7 +2092,8 @@ with col2:
             "Matemáticas 2": ("JORGE", "bachillerato_m2"),
             "Lenguaje": ("JULIANNA", "bachillerato_l"),
             "Ciencias 1": ("SANDRA", "bachillerato_c1"),
-            "Ciencias 2": ("ANA S", "bachillerato_c2")
+            "Ciencias 2": ("ANA S", "bachillerato_c2"),
+            "Ingles": ("VANESSA", "bachillerato_E1"),
         }
 
         docente, tabla = area_info.get(area, ("Desconocido", None))
