@@ -2029,6 +2029,7 @@ with col2:
 
     st.subheader("Notas")
     st.write(F5_2)
+    st.write(notas_ingles)
 
     ############################# Parte de ingresar notas
 
