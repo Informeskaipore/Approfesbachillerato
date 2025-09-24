@@ -1770,7 +1770,7 @@ with col1:
         "Lenguaje": "bachillerato_l",
         "Ciencias 1": "bachillerato_c1",
         "Ciencias 2": "bachillerato_c2",
-        "Inglés": "bachillerato_e"  # si existe
+        "Inglés": "bachillerato_e1" 
     }
 
     
@@ -2093,7 +2093,7 @@ with col2:
             "Lenguaje": ("JULIANNA", "bachillerato_l"),
             "Ciencias 1": ("SANDRA", "bachillerato_c1"),
             "Ciencias 2": ("ANA S", "bachillerato_c2"),
-            "Ingles": ("VANESSA", "bachillerato_E1"),
+            "Ingles": ("VANESSA", "bachillerato_e1"),
         }
 
         docente, tabla = area_info.get(area, ("Desconocido", None))
