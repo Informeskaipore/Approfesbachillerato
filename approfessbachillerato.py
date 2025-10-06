@@ -223,27 +223,27 @@ with col1:
 
                 #Esta parte del codigo hace que no planee nada de matematicas si ya completo matematicas pero no ha terminado el bloque
                 for bloque in bloques:
-                    notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
+                    notas_bloque_completo = notas_estudiante[notas_estudiante['bloque'] == bloque ]
                 
                     if grado_actual in ['4','5''6','7']:
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_6_7))]
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_6_7))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
                     if grado_actual in ['8','9']:
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_8_9))]
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '10' :
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10))]
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '11' :
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10))]
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
@@ -373,16 +373,16 @@ with col1:
                 asignaturas_11 = ['QUIMICA', 'MEDIO AMBIENTE', 'FISICA']
 
                 for bloque in bloques:
-                    notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
+                    notas_bloque_completo = notas_estudiante[notas_estudiante['bloque'] == bloque ]
                 
                     if grado_actual in ['4','5','6','7','8','9','10']:
-                        notas_bloque_ciencias = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas))]
+                        notas_bloque_ciencias = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_ciencias) == 20):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '11' :
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_11))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
@@ -483,21 +483,21 @@ with col1:
                 asignaturas = ['Historia', 'Geografía', 'CIENCIAS ECONOMICAS', 'Participación política','CIENCIAS POLITICAS','FILOSOFIA']
 
                 for bloque in bloques:
-                    notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
+                    notas_bloque_completo = notas_estudiante[notas_estudiante['bloque'] == bloque ]
                 
                     if grado_actual in ['4','5','6','7','8','9']:
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_6_7_8_9))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_6_7_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_sociales) == 20):
                             desempeno_encontrado = True
                             break
                     if grado_actual == '10':
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '11' :
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
@@ -602,21 +602,21 @@ with col1:
                 asignaturas = ['Historia', 'Geografía', 'CIENCIAS ECONOMICAS', 'Participación política','CIENCIAS POLITICAS','FILOSOFIA']
 
                 for bloque in bloques:
-                    notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
+                    notas_bloque_completo = notas_estudiante[notas_estudiante['bloque'] == bloque ]
                 
                     if grado_actual in ['4','5','6','7','8','9']:
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_6_7_8_9))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_6_7_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_sociales) == 20):
                             desempeno_encontrado = True
                             break
                     if grado_actual == '10':
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '11' :
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
@@ -719,20 +719,20 @@ with col1:
                 asignaturas = ['Comunicación y SISTEMAS simbólicos', 'Producción e interpretación de textos','METODOLOGIA']
 
                 for bloque in bloques:
-                    notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
+                    notas_bloque_completo = notas_estudiante[notas_estudiante['bloque'] == bloque ]
                 
                     if grado_actual in ['4','5','6','7','8','9']:
-                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_6_7_8_9))]
+                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_6_7_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_lenguaje) == 10):
                             desempeno_encontrado = True
                             break
                     if grado_actual in ['10']:
-                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_10_11))]
+                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_10_11))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_lenguaje) == 15):
                             desempeno_encontrado = True
                             break
                     if grado_actual in ['11']:
-                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_10_11))]
+                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['bloque'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_10_11))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_lenguaje) == 15):
                             desempeno_encontrado = True
                             break
@@ -1815,7 +1815,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1825,7 +1825,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1836,7 +1836,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1847,7 +1847,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1859,7 +1859,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1869,7 +1869,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1882,7 +1882,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1892,7 +1892,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1902,7 +1902,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1912,7 +1912,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1925,7 +1925,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1935,7 +1935,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1945,7 +1945,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1955,7 +1955,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1968,7 +1968,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1978,7 +1978,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1988,7 +1988,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -1998,7 +1998,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
@@ -2010,7 +2010,7 @@ with col2:
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas_ingles[ (notas_ingles['estudiante'] == estudiante_seleccionado) & (notas_ingles['grado'] == grado) & (notas_ingles['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
-                notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
+                notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
