@@ -1796,7 +1796,7 @@ with col2:
         estudiantes['estudiante'].unique()
     )
 
-    # Definir el orden personalizado para ETAPA
+    # Definir el orden personalizado para etapa
     orden_etapas = {"D1": 1, "D2": 2, "D3": 3, "D4": 4, "D5": 5}
     # Nombres de las columnas
     columnas_personalizadas = [f"A{i}" for i in range(1,6)] + [f"B{i}" for i in range(1,6)] + [f"C{i}" for i in range(1,6)] + [f"D{i}" for i in range(1,6)]
@@ -1814,7 +1814,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(ciencias_6_7), 20), "", dtype=str), index=ciencias_6_7, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1824,7 +1824,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(sociales_4_5), 20), "", dtype=str), index=sociales_4_5, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1835,7 +1835,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(sociales_6_7), 20), "", dtype=str), index=sociales_6_7, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1846,7 +1846,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(lenguaje_4_5), 20), "", dtype=str), index=lenguaje_4_5, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1858,7 +1858,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(lenguaje_6_7), 20), "", dtype=str), index=lenguaje_6_7, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1868,7 +1868,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(matemati_6_7), 20), "", dtype=str), index=matemati_6_7, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1881,7 +1881,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(ciencias_8_9), 20), "", dtype=str), index=ciencias_8_9, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1891,7 +1891,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(sociales_8_9), 20), "", dtype=str), index=sociales_8_9, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1901,7 +1901,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(lenguaje_8_9), 20), "", dtype=str), index=lenguaje_8_9, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1911,7 +1911,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(matemati_8_9), 20), "", dtype=str), index=matemati_8_9, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1924,7 +1924,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(ciencias_10), 20), "", dtype=str), index=ciencias_10, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1934,7 +1934,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(sociales_10), 20), "", dtype=str), index=sociales_10, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1944,7 +1944,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(lenguaje_10), 20), "", dtype=str), index=lenguaje_10, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1954,7 +1954,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(matemati_10), 20), "", dtype=str), index=matemati_10, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1967,7 +1967,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(ciencias_11), 20), "", dtype=str), index=ciencias_11, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1977,7 +1977,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(sociales_11), 20), "", dtype=str), index=sociales_11, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1987,7 +1987,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(lenguaje_11), 20), "", dtype=str), index=lenguaje_11, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -1997,7 +1997,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(matemati_11), 20), "", dtype=str), index=matemati_11, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
@@ -2009,7 +2009,7 @@ with col2:
             F5_2 = pd.DataFrame(np.full((len(ingles), 20), "", dtype=str), index=ingles, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
                 notas_asi = notas_ingles[ (notas_ingles['estudiante'] == estudiante_seleccionado) & (notas_ingles['grado'] == grado) & (notas_ingles['asignatura'] == asignatura) ]
-                notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
+                notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
                 lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
