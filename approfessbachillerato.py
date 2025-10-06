@@ -2062,7 +2062,7 @@ with col2:
             asignatura = st.selectbox("Asignatura", matematicas_global)
         elif area == "Matemáticas 2":
             asignatura = st.selectbox("Asignatura", matematicas_global)
-        elif area == "Ingles":
+        elif area == "Inglés":
             asignatura = st.selectbox("Asignatura", ingles)
         else:
             asignatura = None  # En caso de que no se haya escogido área
