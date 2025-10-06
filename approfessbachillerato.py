@@ -9,42 +9,37 @@ import matplotlib.pyplot as plt # type: ignore
 from datetime import datetime
 import pytz
 import mysql.connector
-from db_utils import get_connection 
+from db_utils import crear_engine, obtener_notas_planetscale, listado_general_planetscale 
 
 #Esta nota es para verificar llave ssh
 st.set_page_config(layout="wide")
 
 # Enlace de descarga directa 
-url_excel = "https://gkinnova-my.sharepoint.com/:x:/g/personal/manuela_gutierrez_gimnasiokaipore_com/ESsbWoRrT2pOq7G6DlLrtAgB7gRvw3J5komJxW7VzbM_vg?download=1"
 url_excel_planeacion = 'https://gkinnova-my.sharepoint.com/:x:/g/personal/manuela_gutierrez_gimnasiokaipore_com/EY4Dg1oyrWBIlzQSB6NVjnEB17gVB5324RNAKs4qMRhdSA?e=IXuEc2&download=1'
-url_excel_listado = 'https://gkinnova-my.sharepoint.com/:x:/g/personal/manuela_gutierrez_gimnasiokaipore_com/EW47uW_fJFtInsbP1zH_30gBdsFrR5Asr0ouwkvcoqEmXA?download=1'
 
-
-ingles = ['Inglés - listening','Inglés - speaking','Inglés - writing', 'Inglés - reading']
+ingles = ['INGLES LISTENING','INGLES READING','INGLES SPEAKING', 'INGLES WRITING']
 
 def cargar_listado():
-    response = requests.get(url_excel_listado)
-    response.raise_for_status()  # Lanza error si hay HTTP 403/404/500
-    df = pd.read_excel(BytesIO(response.content), sheet_name='g')
-    df['GRADO'] = df['GRADO'].astype(str)
-    df['ESTUDIANTE'] = df['ESTUDIANTE'].apply(corregir_nombre)
-    df.loc[df['ESTUDIANTE'] == 'ACOSTA CASTANEDA JUAN CARLOS', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'ELVIRA DUARTE SARAH', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'MEDINA USECHE ANTONIO JOSE', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'OLAYA GONZALEZ CHRISTOPHER', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'PALMA ESTRADA JOSE MIGUEL', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'RIOS LUGO JUAN DIEGO', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'VILLAMIL GUANCHEZ AMANDA ISABEL', 'GRADO'] = '6'
-    df.loc[df['ESTUDIANTE'] == 'YANDUM BAUTISTA ANDRES FELIPE', 'GRADO'] = '6'
-    df = df[df['GRADO'].isin(['6','7','8','9','10','11'])]
-    df.loc[df['ESTUDIANTE'] == 'ACOSTA CASTANEDA JUAN CARLOS', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'ELVIRA DUARTE SARAH', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'MEDINA USECHE ANTONIO JOSE', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'OLAYA GONZALEZ CHRISTOPHER', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'PALMA ESTRADA JOSE MIGUEL', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'RIOS LUGO JUAN DIEGO', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'VILLAMIL GUANCHEZ AMANDA ISABEL', 'GRADO'] = '4'
-    df.loc[df['ESTUDIANTE'] == 'YANDUM BAUTISTA ANDRES FELIPE', 'GRADO'] = '4'
+    df = listado_general_planetscale()
+    df['grado'] = df['grado'].astype(str)
+    df['estudiante'] = df['estudiante'].apply(corregir_nombre)
+    df.loc[df['estudiante'] == 'ACOSTA CASTANEDA JUAN CARLOS', 'grado'] = '6'
+    df.loc[df['estudiante'] == 'ELVIRA DUARTE SARAH', 'grado'] = '6'
+    df.loc[df['estudiante'] == 'MEDINA USECHE ANTONIO JOSE', 'grado'] = '6'
+    df.loc[df['estudiante'] == 'OLAYA GONZALEZ CHRISTOPHER', 'grado'] = '6'
+    df.loc[df['estudiante'] == 'PALMA ESTRADA JOSE MIGUEL', 'grado'] = '6'
+    df.loc[df['estudiante'] == 'RIOS LUGO JUAN DIEGO', 'grado'] = '6'
+    df.loc[df['estudiante'] == 'VILLAMIL GUANCHEZ AMANDA ISABEL', 'grado'] = '6'
+    df.loc[df['estudiante'] == 'YANDUM BAUTISTA ANDRES FELIPE', 'grado'] = '6'
+    df = df[df['grado'].isin(['6','7','8','9','10','11'])]
+    df.loc[df['estudiante'] == 'ACOSTA CASTANEDA JUAN CARLOS', 'grado'] = '4'
+    df.loc[df['estudiante'] == 'ELVIRA DUARTE SARAH', 'grado'] = '4'
+    df.loc[df['estudiante'] == 'MEDINA USECHE ANTONIO JOSE', 'grado'] = '4'
+    df.loc[df['estudiante'] == 'OLAYA GONZALEZ CHRISTOPHER', 'grado'] = '4'
+    df.loc[df['estudiante'] == 'PALMA ESTRADA JOSE MIGUEL', 'grado'] = '4'
+    df.loc[df['estudiante'] == 'RIOS LUGO JUAN DIEGO', 'grado'] = '4'
+    df.loc[df['estudiante'] == 'VILLAMIL GUANCHEZ AMANDA ISABEL', 'grado'] = '4'
+    df.loc[df['estudiante'] == 'YANDUM BAUTISTA ANDRES FELIPE', 'grado'] = '4'
     return df
 
 
@@ -56,24 +51,20 @@ def cargar_planeacion():
 
 @st.cache_data
 def cargar_notas():
-    response = requests.get(url_excel)
-    response.raise_for_status()  # Lanza error si hay HTTP 403/404/500
-    df = pd.read_excel(BytesIO(response.content), sheet_name='GK2025')
-    df['GRADO'] = df['GRADO'].astype(str)
-    df['ESTUDIANTE'] = df['ESTUDIANTE'].apply(corregir_nombre)
-    df['FECHA'] = pd.to_datetime(df['FECHA'], errors='coerce')
-    df = df[~df['ASIGNATURA'].isin(ingles)]
+    df = obtener_notas_planetscale()
+    df['grado'] = df['grado'].astype(str)
+    df['estudiante'] = df['estudiante'].apply(corregir_nombre)
+    df['fecha'] = pd.to_datetime(df['fecha'], errors='coerce')
+    df = df[~df['asignatura'].isin(ingles)]
     return df
 
 @st.cache_data
 def cargar_notas_ingles():
-    response = requests.get(url_excel)
-    response.raise_for_status()  # Lanza error si hay HTTP 403/404/500
-    df = pd.read_excel(BytesIO(response.content), sheet_name='GK2025')
-    df['GRADO'] = df['GRADO'].astype(str)
-    df['ESTUDIANTE'] = df['ESTUDIANTE'].apply(corregir_nombre)
-    df['FECHA'] = pd.to_datetime(df['FECHA'], errors='coerce')
-    df = df[df['ASIGNATURA'].isin(ingles)]
+    df = obtener_notas_planetscale()
+    df['grado'] = df['grado'].astype(str)
+    df['estudiante'] = df['estudiante'].apply(corregir_nombre)
+    df['fecha'] = pd.to_datetime(df['fecha'], errors='coerce')
+    df = df[df['asignatura'].isin(ingles)]
     return df
 
 notas = cargar_notas()
@@ -81,67 +72,67 @@ notas_ingles = cargar_notas_ingles()
 planeacion_primaria = cargar_planeacion()
 estudiantes = cargar_listado()
 
-notas['GRADO'] = notas['GRADO'].astype(str)
-notas['ESTUDIANTE'] = notas['ESTUDIANTE'].apply(corregir_nombre)
+notas['grado'] = notas['grado'].astype(str)
+notas['estudiante'] = notas['estudiante'].apply(corregir_nombre)
 
 
 ################################################################################################################
-asignaturas_6_7= ['Biología','Química','Medio ambiente','Física',
-                  'Historia', 'Geografía', 'Participación política','Filosofía',
-                  'Comunicación y sistemas simbólicos','Producción e interpretación de textos',
-                  'Aritmética','Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
+asignaturas_6_7= ['BIOLOGIA','QUIMICA','MEDIO AMBIENTE','FISICA',
+                  'HISTORIA', 'GEOGRAFIA', 'PARTICIPACION POLITICA','FILOSOFIA',
+                  'COMUNICACION Y SISTEMAS SIMBOLICOS','PRODUCCION E INTERPRETACION DE TEXTOS',
+                  'ARITMETICA','ANIMAPLANOS','ESTADISTICA', 'GEOMETRIA', 'DIBUJO TECNICO', 'SISTEMAS']
 
-ciencias_6_7  = ['Biología','Química','Medio ambiente','Física']
-sociales_6_7  = ['Historia', 'Geografía', 'Participación política','Filosofía']
-lenguaje_6_7  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos']
-matemati_6_7  = ['Aritmética','Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
-sociales_4_5  = ['Historia', 'Geografía', 'Participación política','Pensamiento religioso']
-lenguaje_4_5  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos','Pensamiento religioso']
-
-######################################################################################################################################
-
-asignaturas_8_9= ['Biología','Química','Medio ambiente','Física',
-                  'Historia', 'Geografía', 'Participación política','Filosofía',
-                  'Comunicación y sistemas simbólicos','Producción e interpretación de textos',
-                  'Álgebra', 'Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
-
-ciencias_8_9  = ['Biología','Química','Medio ambiente','Física']
-sociales_8_9  = ['Historia', 'Geografía', 'Participación política','Filosofía']
-lenguaje_8_9  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos']
-matemati_8_9  = ['Álgebra','Animaplanos', 'Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas']
+ciencias_6_7  = ['BIOLOGIA','QUIMICA','MEDIO AMBIENTE','FISICA']
+sociales_6_7  = ['HISTORIA', 'GEOGRAFIA', 'PARTICIPACION POLITICA','FILOSOFIA']
+lenguaje_6_7  = ['COMUNICACION Y SISTEMAS SIMBOLICOS','PRODUCCION E INTERPRETACION DE TEXTOS']
+matemati_6_7  = ['ARITMETICA','ANIMAPLANOS','ESTADISTICA', 'GEOMETRIA', 'DIBUJO TECNICO', 'SISTEMAS']
+sociales_4_5  = ['HISTORIA', 'GEOGRAFIA', 'PARTICIPACION POLITICA','PENSAMIENTO RELIGIOSO']
+lenguaje_4_5  = ['COMUNICACION Y SISTEMAS SIMBOLICOS','PRODUCCION E INTERPRETACION DE TEXTOS','PENSAMIENTO RELIGIOSO']
 
 ######################################################################################################################################
 
+asignaturas_8_9= ['BIOLOGIA','QUIMICA','MEDIO AMBIENTE','FISICA',
+                  'HISTORIA', 'GEOGRAFIA', 'PARTICIPACION POLITICA','FILOSOFIA',
+                  'COMUNICACION Y SISTEMAS SIMBOLICOS','PRODUCCION E INTERPRETACION DE TEXTOS',
+                  'ALGEBRA', 'ANIMAPLANOS','ESTADISTICA', 'GEOMETRIA', 'DIBUJO TECNICO', 'SISTEMAS']
 
-asignaturas_10=  ['Biología','Química','Medio ambiente','Física',
-                  'Ciencias económicas', 'Ciencias políticas','Filosofía',
-                  'Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología',
-                  'Trigonometría','Animaplanos', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
-
-ciencias_10  = ['Biología','Química','Medio ambiente','Física','Metodología']
-sociales_10  = ['Ciencias económicas', 'Ciencias políticas','Filosofía','Metodología']
-lenguaje_10  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología']
-matemati_10  = ['Trigonometría','Animaplanos', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas','Metodología']
+ciencias_8_9  = ['BIOLOGIA','QUIMICA','MEDIO AMBIENTE','FISICA']
+sociales_8_9  = ['HISTORIA', 'GEOGRAFIA', 'PARTICIPACION POLITICA','FILOSOFIA']
+lenguaje_8_9  = ['COMUNICACION Y SISTEMAS SIMBOLICOS','PRODUCCION E INTERPRETACION DE TEXTOS']
+matemati_8_9  = ['ALGEBRA','ANIMAPLANOS', 'ESTADISTICA', 'GEOMETRIA', 'DIBUJO TECNICO', 'SISTEMAS']
 
 ######################################################################################################################################
-asignaturas_11=  ['Química','Medio ambiente','Física',
-                  'Ciencias económicas', 'Ciencias políticas','Filosofía',
-                  'Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología',
-                  'Cálculo','Animaplanos', 'Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas']
 
-ciencias_11  = ['Química','Medio ambiente','Física','Metodología']
-sociales_11  = ['Ciencias económicas', 'Ciencias políticas','Filosofía','Metodología']
-lenguaje_11  = ['Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología']
-matemati_11  = ['Cálculo','Animaplanos','Estadística', 'Matemática financiera', 'Dibujo técnico', 'Sistemas','Metodología']
+
+asignaturas_10=  ['BIOLOGIA','QUIMICA','MEDIO AMBIENTE','FISICA',
+                  'CIENCIAS ECONOMICAS', 'CIENCIAS POLITICAS','FILOSOFIA',
+                  'COMUNICACION Y SISTEMAS SIMBOLICOS','PRODUCCION E INTERPRETACION DE TEXTOS','METODOLOGIA',
+                  'TRIGONOMETRIA','ANIMAPLANOS', 'ESTADISTICA', 'MATEMATICA FINANCIERA', 'DIBUJO TECNICO', 'SISTEMAS']
+
+ciencias_10  = ['BIOLOGIA','QUIMICA','MEDIO AMBIENTE','FISICA','METODOLOGIA']
+sociales_10  = ['CIENCIAS ECONOMICAS', 'CIENCIAS POLITICAS','FILOSOFIA','METODOLOGIA']
+lenguaje_10  = ['COMUNICACION Y SISTEMAS SIMBOLICOS','PRODUCCION E INTERPRETACION DE TEXTOS','METODOLOGIA']
+matemati_10  = ['TRIGONOMETRIA','ANIMAPLANOS', 'ESTADISTICA', 'MATEMATICA FINANCIERA', 'DIBUJO TECNICO', 'SISTEMAS','METODOLOGIA']
+
+######################################################################################################################################
+asignaturas_11=  ['QUIMICA','MEDIO AMBIENTE','FISICA',
+                  'CIENCIAS ECONOMICAS', 'CIENCIAS POLITICAS','FILOSOFIA',
+                  'COMUNICACION Y SISTEMAS SIMBOLICOS','PRODUCCION E INTERPRETACION DE TEXTOS','METODOLOGIA',
+                  'CALCULO','ANIMAPLANOS', 'ESTADISTICA', 'MATEMATICA FINANCIERA', 'DIBUJO TECNICO', 'SISTEMAS']
+
+ciencias_11  = ['QUIMICA','MEDIO AMBIENTE','FISICA','METODOLOGIA']
+sociales_11  = ['CIENCIAS ECONOMICAS', 'CIENCIAS POLITICAS','FILOSOFIA','METODOLOGIA']
+lenguaje_11  = ['COMUNICACION Y SISTEMAS SIMBOLICOS','PRODUCCION E INTERPRETACION DE TEXTOS','METODOLOGIA']
+matemati_11  = ['CALCULO','ANIMAPLANOS','ESTADISTICA', 'MATEMATICA FINANCIERA', 'DIBUJO TECNICO', 'SISTEMAS','METODOLOGIA']
 
 ##################################################################################################################
 
 ##Asignaturas globales para el formulario de cargar notas
 
-ciencias_global = ['Biología','Química','Medio ambiente','Física','Metodología']
-sociales_global = ['Historia', 'Geografía', 'Participación política','Filosofía','Ciencias económicas', 'Ciencias políticas','Metodología','Pensamiento religioso']
-lenguaje_global = ['Pensamiento religioso','Comunicación y sistemas simbólicos','Producción e interpretación de textos','Metodología','Pensamiento religioso']
-matematicas_global = ['Aritmética','Álgebra','Trigonometría','Cálculo','Animaplanos','Estadística', 'Geometría', 'Dibujo técnico', 'Sistemas','Metodología','Matemática financiera']
+ciencias_global = ['BIOLOGIA','QUIMICA','MEDIO AMBIENTE','FISICA','METODOLOGIA']
+sociales_global = ['HISTORIA', 'GEOGRAFIA', 'PARTICIPACION POLITICA','FILOSOFIA','CIENCIAS ECONOMICAS', 'CIENCIAS POLITICAS','METODOLOGIA','PENSAMIENTO RELIGIOSO']
+lenguaje_global = ['PENSAMIENTO RELIGIOSO','COMUNICACION Y SISTEMAS SIMBOLICOS','PRODUCCION E INTERPRETACION DE TEXTOS','METODOLOGIA','PENSAMIENTO RELIGIOSO']
+matematicas_global = ['ARITMETICA','ALGEBRA','TRIGONOMETRIA','CALCULO','ANIMAPLANOS','ESTADISTICA', 'GEOMETRIA', 'DIBUJO TECNICO', 'SISTEMAS','METODOLOGIA','MATEMATICA FINANCIERA']
 
 
 
@@ -188,9 +179,9 @@ with col1:
         
         df_nombres = pd.concat([LMOD1, LMOD2, MMOD1, MMOD2, WMOD1, WMOD2, JMOD1, JMOD2, VMOD1, VMOD2], ignore_index=True)
 
-        # Crear un diccionario clave ESTUDIANTE y valor GRUPO
-        grupo_map = dict(zip(estudiantes['ESTUDIANTE'], estudiantes['GRUPO']))
-        grado_map = dict(zip(estudiantes['ESTUDIANTE'], estudiantes['GRADO']))
+        # Crear un diccionario clave estudiante y valor grupo
+        grupo_map = dict(zip(estudiantes['estudiante'], estudiantes['grupo']))
+        grado_map = dict(zip(estudiantes['estudiante'], estudiantes['grado']))
 
         # Asignar grupo y grado correspondiente a cada estudiante de df_nombres
         df_nombres['1'] = df_nombres.iloc[:, 0].map(grupo_map)
@@ -222,37 +213,37 @@ with col1:
                     desempeno_encontrado = True
                     continue 
                 
-                materias_especificas_6_7 = ['Aritmética','Animaplanos','Geometría', 'Estadística', 'Dibujo técnico', 'Sistemas']
-                materias_especificas_8_9 = ['Álgebra','Animaplanos', 'Geometría', 'Estadística', 'Dibujo técnico', 'Sistemas']
-                materias_especificas_10 =  ['Trigonometría','Animaplanos', 'Matemática financiera', 'Estadística', 'Dibujo técnico', 'Sistemas']
-                materias_especificas_11 =  ['Cálculo','Animaplanos', 'Matemática financiera', 'Estadística', 'Dibujo técnico', 'Sistemas']
+                materias_especificas_6_7 = ['ARITMETICA','ANIMAPLANOS','GEOMETRIA', 'ESTADISTICA', 'DIBUJO TECNICO', 'SISTEMAS']
+                materias_especificas_8_9 = ['ALGEBRA','ANIMAPLANOS', 'GEOMETRIA', 'ESTADISTICA', 'DIBUJO TECNICO', 'SISTEMAS']
+                materias_especificas_10 =  ['TRIGONOMETRIA','ANIMAPLANOS', 'MATEMATICA FINANCIERA', 'ESTADISTICA', 'DIBUJO TECNICO', 'SISTEMAS']
+                materias_especificas_11 =  ['CALCULO','ANIMAPLANOS', 'MATEMATICA FINANCIERA', 'ESTADISTICA', 'DIBUJO TECNICO', 'SISTEMAS']
                     
                 bloques = ['A', 'B', 'C', 'D']
-                asignaturas = ['Aritmética', 'Animaplanos','Geometría','Matemática financiera', 'Álgebra', 'Estadística', 'Dibujo técnico', 'Sistemas','Trigonometría','Cálculo']
+                asignaturas = ['ARITMETICA', 'ANIMAPLANOS','GEOMETRIA','MATEMATICA FINANCIERA', 'ALGEBRA', 'ESTADISTICA', 'DIBUJO TECNICO', 'SISTEMAS','TRIGONOMETRIA','CALCULO']
 
                 #Esta parte del codigo hace que no planee nada de matematicas si ya completo matematicas pero no ha terminado el bloque
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
                     if grado_actual in ['4','5''6','7']:
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_6_7))]
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_6_7))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
                     if grado_actual in ['8','9']:
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_8_9))]
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '10' :
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10))]
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '11' :
-                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10))]
+                        notas_bloque_matematicas = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_matematicas) == 30):
                             desempeno_encontrado = True
                             break
@@ -378,20 +369,20 @@ with col1:
                 
                     
                 bloques = ['A', 'B', 'C', 'D']
-                asignaturas = ['Biología', 'Química', 'Medio ambiente', 'Física']
-                asignaturas_11 = ['Química', 'Medio ambiente', 'Física']
+                asignaturas = ['Biología', 'QUIMICA', 'MEDIO AMBIENTE', 'FISICA']
+                asignaturas_11 = ['QUIMICA', 'MEDIO AMBIENTE', 'FISICA']
 
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
                     if grado_actual in ['4','5','6','7','8','9','10']:
-                        notas_bloque_ciencias = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(asignaturas))]
+                        notas_bloque_ciencias = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_ciencias) == 20):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '11' :
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(asignaturas_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_11))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
@@ -484,29 +475,29 @@ with col1:
                     desempeno_encontrado = True
                     continue 
                 
-                materias_especificas_6_7_8_9 = ['Historia', 'Geografía', 'Participación política', 'Filosofía']
-                materias_especificas_10_11 = ['Ciencias económicas', 'Ciencias políticas', 'Filosofía']
+                materias_especificas_6_7_8_9 = ['HISTORIA', 'GEOGRAFIA', 'PARTICIPACION POLITICA', 'FILOSOFIA']
+                materias_especificas_10_11 = ['CIENCIAS ECONOMICAS', 'CIENCIAS POLITICAS', 'FILOSOFIA']
             
                         
                 bloques = ['A', 'B', 'C', 'D']
-                asignaturas = ['Historia', 'Geografía', 'Ciencias económicas', 'Participación política','Ciencias políticas','Filosofía']
+                asignaturas = ['Historia', 'Geografía', 'CIENCIAS ECONOMICAS', 'Participación política','CIENCIAS POLITICAS','FILOSOFIA']
 
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
                     if grado_actual in ['4','5','6','7','8','9']:
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_6_7_8_9))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_6_7_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_sociales) == 20):
                             desempeno_encontrado = True
                             break
                     if grado_actual == '10':
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '11' :
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
@@ -603,29 +594,29 @@ with col1:
                     desempeno_encontrado = True
                     continue 
                 
-                materias_especificas_6_7_8_9 = ['Historia', 'Geografía', 'Participación política', 'Filosofía']
-                materias_especificas_10_11 = ['Ciencias económicas', 'Ciencias políticas', 'Filosofía']
+                materias_especificas_6_7_8_9 = ['HISTORIA', 'GEOGRAFIA', 'PARTICIPACION POLITICA', 'FILOSOFIA']
+                materias_especificas_10_11 = ['CIENCIAS ECONOMICAS', 'CIENCIAS POLITICAS', 'FILOSOFIA']
             
                         
                 bloques = ['A', 'B', 'C', 'D']
-                asignaturas = ['Historia', 'Geografía', 'Ciencias económicas', 'Participación política','Ciencias políticas','Filosofía']
+                asignaturas = ['Historia', 'Geografía', 'CIENCIAS ECONOMICAS', 'Participación política','CIENCIAS POLITICAS','FILOSOFIA']
 
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
                     if grado_actual in ['4','5','6','7','8','9']:
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_6_7_8_9))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_6_7_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_sociales) == 20):
                             desempeno_encontrado = True
                             break
                     if grado_actual == '10':
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
                     
                     if grado_actual == '11' :
-                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(materias_especificas_10_11))]
+                        notas_bloque_sociales = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(materias_especificas_10_11))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_sociales) == 15):
                             desempeno_encontrado = True
                             break
@@ -723,25 +714,25 @@ with col1:
                 
                     
                 bloques = ['A', 'B', 'C', 'D']
-                asignaturas_6_7_8_9 = ['Comunicación y sistemas simbólicos', 'Producción e interpretación de textos']
-                asignaturas_10_11 = ['Comunicación y sistemas simbólicos', 'Producción e interpretación de textos','Metodología']
-                asignaturas = ['Comunicación y sistemas simbólicos', 'Producción e interpretación de textos','Metodología']
+                asignaturas_6_7_8_9 = ['Comunicación y SISTEMAS simbólicos', 'Producción e interpretación de textos']
+                asignaturas_10_11 = ['Comunicación y SISTEMAS simbólicos', 'Producción e interpretación de textos','METODOLOGIA']
+                asignaturas = ['Comunicación y SISTEMAS simbólicos', 'Producción e interpretación de textos','METODOLOGIA']
 
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['BLOQUE'] == bloque ]
                 
                     if grado_actual in ['4','5','6','7','8','9']:
-                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(asignaturas_6_7_8_9))]
+                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_6_7_8_9))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_lenguaje) == 10):
                             desempeno_encontrado = True
                             break
                     if grado_actual in ['10']:
-                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(asignaturas_10_11))]
+                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_10_11))]
                         if (len(notas_bloque_completo) < 80) and (len(notas_bloque_lenguaje) == 15):
                             desempeno_encontrado = True
                             break
                     if grado_actual in ['11']:
-                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['ASIGNATURA'].isin(asignaturas_10_11))]
+                        notas_bloque_lenguaje = notas_estudiante[ (notas_estudiante['BLOQUE'] == bloque) & (notas_estudiante['asignatura'].isin(asignaturas_10_11))]
                         if (len(notas_bloque_completo) < 75) and (len(notas_bloque_lenguaje) == 15):
                             desempeno_encontrado = True
                             break
@@ -1802,7 +1793,7 @@ with col2:
     # Barra de búsqueda con autocompletado
     estudiante_seleccionado = st.selectbox(
         "Selecciona un estudiante:",
-        estudiantes['ESTUDIANTE'].unique()
+        estudiantes['estudiante'].unique()
     )
 
     # Definir el orden personalizado para ETAPA
@@ -1814,7 +1805,7 @@ with col2:
     if estudiante_seleccionado and area_seleccionada in ['C1','C2','S1','S2','L','M1','M2','E1']:
 
         # Filtrar la base principal por el estudiante seleccionado
-        grado = estudiantes.loc[estudiantes['ESTUDIANTE'] == estudiante_seleccionado, 'GRADO'].values[0]
+        grado = estudiantes.loc[estudiantes['estudiante'] == estudiante_seleccionado, 'grado'].values[0]
         grado = str(grado)
 
         #aqui se crea el f5 de acuerdo al area si el grado es sexto o septimo
@@ -1822,7 +1813,7 @@ with col2:
         if grado in ['4','5','6', '7'] and area_seleccionada in ['C1', 'C2']:
             F5_2 = pd.DataFrame(np.full((len(ciencias_6_7), 20), "", dtype=str), index=ciencias_6_7, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1832,7 +1823,7 @@ with col2:
         if grado in ['4','5'] and area_seleccionada in ['S1', 'S2']:
             F5_2 = pd.DataFrame(np.full((len(sociales_4_5), 20), "", dtype=str), index=sociales_4_5, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1843,7 +1834,7 @@ with col2:
         if grado in ['6', '7'] and area_seleccionada in ['S1', 'S2']:
             F5_2 = pd.DataFrame(np.full((len(sociales_6_7), 20), "", dtype=str), index=sociales_6_7, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1854,7 +1845,7 @@ with col2:
         if grado in ['4','5'] and area_seleccionada == 'L':
             F5_2 = pd.DataFrame(np.full((len(lenguaje_4_5), 20), "", dtype=str), index=lenguaje_4_5, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1866,7 +1857,7 @@ with col2:
         if grado in ['6','7'] and area_seleccionada == 'L':
             F5_2 = pd.DataFrame(np.full((len(lenguaje_6_7), 20), "", dtype=str), index=lenguaje_6_7, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1876,7 +1867,7 @@ with col2:
         if grado in ['4','5','6', '7'] and area_seleccionada in ['M1', 'M2']:
             F5_2 = pd.DataFrame(np.full((len(matemati_6_7), 20), "", dtype=str), index=matemati_6_7, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1884,12 +1875,12 @@ with col2:
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
 
-        ########################################## AQUI SE CREA EL F5 SI EL GRADO ES OCTAVO O NOVENO
+        ########################################## AQUI SE CREA EL F5 SI EL grado ES OCTAVO O NOVENO
 
         if grado in ['8', '9'] and area_seleccionada in ['C1', 'C2']:
             F5_2 = pd.DataFrame(np.full((len(ciencias_8_9), 20), "", dtype=str), index=ciencias_8_9, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1899,7 +1890,7 @@ with col2:
         if grado in ['8', '9'] and area_seleccionada in ['S1', 'S2']:
             F5_2 = pd.DataFrame(np.full((len(sociales_8_9), 20), "", dtype=str), index=sociales_8_9, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1909,7 +1900,7 @@ with col2:
         if grado in ['8','9'] and area_seleccionada == 'L':
             F5_2 = pd.DataFrame(np.full((len(lenguaje_8_9), 20), "", dtype=str), index=lenguaje_8_9, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1919,7 +1910,7 @@ with col2:
         if grado in ['8', '9'] and area_seleccionada in ['M1', 'M2']:
             F5_2 = pd.DataFrame(np.full((len(matemati_8_9), 20), "", dtype=str), index=matemati_8_9, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1927,12 +1918,12 @@ with col2:
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
 
-        ######################## AQUI SE CREA EL F5 SI EL GRADO ES DECIMO
+        ######################## AQUI SE CREA EL F5 SI EL grado ES DECIMO
 
         if grado in ['10'] and area_seleccionada in ['C1', 'C2']:
             F5_2 = pd.DataFrame(np.full((len(ciencias_10), 20), "", dtype=str), index=ciencias_10, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1942,7 +1933,7 @@ with col2:
         if grado in ['10'] and area_seleccionada in ['S1', 'S2']:
             F5_2 = pd.DataFrame(np.full((len(sociales_10), 20), "", dtype=str), index=sociales_10, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1952,7 +1943,7 @@ with col2:
         if grado in ['10'] and area_seleccionada == 'L':
             F5_2 = pd.DataFrame(np.full((len(lenguaje_10), 20), "", dtype=str), index=lenguaje_10, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1962,7 +1953,7 @@ with col2:
         if grado in ['10'] and area_seleccionada in ['M1', 'M2']:
             F5_2 = pd.DataFrame(np.full((len(matemati_10), 20), "", dtype=str), index=matemati_10, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1970,12 +1961,12 @@ with col2:
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
 
-        ######################################## AQUI SE CREA EL F5 SI EL GRADO ES 11
+        ######################################## AQUI SE CREA EL F5 SI EL grado ES 11
 
         if grado in ['11'] and area_seleccionada in ['C1', 'C2']:
             F5_2 = pd.DataFrame(np.full((len(ciencias_11), 20), "", dtype=str), index=ciencias_11, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1985,7 +1976,7 @@ with col2:
         if grado in ['11'] and area_seleccionada in ['S1', 'S2']:
             F5_2 = pd.DataFrame(np.full((len(sociales_11), 20), "", dtype=str), index=sociales_11, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -1995,7 +1986,7 @@ with col2:
         if grado in ['11'] and area_seleccionada == 'L':
             F5_2 = pd.DataFrame(np.full((len(lenguaje_11), 20), "", dtype=str), index=lenguaje_11, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -2005,7 +1996,7 @@ with col2:
         if grado in ['11'] and area_seleccionada in ['M1', 'M2']:
             F5_2 = pd.DataFrame(np.full((len(matemati_11), 20), "", dtype=str), index=matemati_11, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas[ (notas['ESTUDIANTE'] == estudiante_seleccionado) & (notas['GRADO'] == grado) & (notas['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas[ (notas['estudiante'] == estudiante_seleccionado) & (notas['grado'] == grado) & (notas['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -2017,7 +2008,7 @@ with col2:
         if area_seleccionada in ['E1']:
             F5_2 = pd.DataFrame(np.full((len(ingles), 20), "", dtype=str), index=ingles, columns= columnas_personalizadas)
             for asignatura,_ in F5_2.iterrows():
-                notas_asi = notas_ingles[ (notas_ingles['ESTUDIANTE'] == estudiante_seleccionado) & (notas_ingles['GRADO'] == grado) & (notas_ingles['ASIGNATURA'] == asignatura) ]
+                notas_asi = notas_ingles[ (notas_ingles['estudiante'] == estudiante_seleccionado) & (notas_ingles['grado'] == grado) & (notas_ingles['asignatura'] == asignatura) ]
                 notas_asi['ETAPA_ORD'] = notas_asi['ETAPA'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['BLOQUE', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
@@ -2050,7 +2041,7 @@ with col2:
     # --- Formulario ---
     with st.form("formulario_estudiante"):
         # Diccionario {estudiante: grado}
-        estudiantes_dict = dict(zip(estudiantes["ESTUDIANTE"], estudiantes["GRADO"]))
+        estudiantes_dict = dict(zip(estudiantes["estudiante"], estudiantes["grado"]))
 
         # Grado automático según estudiante
         grado = estudiantes_dict[estudiante_seleccionado]

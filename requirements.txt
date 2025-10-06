@@ -7,3 +7,4 @@ unidecode
 openpyxl
 mysql-connector-python
 pytz
+sqlalchemy
