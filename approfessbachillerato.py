@@ -28,7 +28,6 @@ def cargar_listado():
     df = pd.read_excel(BytesIO(response.content), sheet_name='g')
     df['GRADO'] = df['GRADO'].astype(str)
     df['ESTUDIANTE'] = df['ESTUDIANTE'].apply(corregir_nombre)
-    df.loc[df['ESTUDIANTE'] == 'YARURO FONSECA JUAN ANTONIO', 'GRADO'] = '6'
     df.loc[df['ESTUDIANTE'] == 'ACOSTA CASTANEDA JUAN CARLOS', 'GRADO'] = '6'
     df.loc[df['ESTUDIANTE'] == 'ELVIRA DUARTE SARAH', 'GRADO'] = '6'
     df.loc[df['ESTUDIANTE'] == 'MEDINA USECHE ANTONIO JOSE', 'GRADO'] = '6'
@@ -38,7 +37,6 @@ def cargar_listado():
     df.loc[df['ESTUDIANTE'] == 'VILLAMIL GUANCHEZ AMANDA ISABEL', 'GRADO'] = '6'
     df.loc[df['ESTUDIANTE'] == 'YANDUM BAUTISTA ANDRES FELIPE', 'GRADO'] = '6'
     df = df[df['GRADO'].isin(['6','7','8','9','10','11'])]
-    df.loc[df['ESTUDIANTE'] == 'YARURO FONSECA JUAN ANTONIO', 'GRADO'] = '5'
     df.loc[df['ESTUDIANTE'] == 'ACOSTA CASTANEDA JUAN CARLOS', 'GRADO'] = '4'
     df.loc[df['ESTUDIANTE'] == 'ELVIRA DUARTE SARAH', 'GRADO'] = '4'
     df.loc[df['ESTUDIANTE'] == 'MEDINA USECHE ANTONIO JOSE', 'GRADO'] = '4'
