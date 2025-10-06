@@ -1817,7 +1817,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['4','5'] and area_seleccionada in ['S1', 'S2']:
@@ -1827,7 +1827,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
 
@@ -1838,7 +1838,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
 
@@ -1849,7 +1849,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
 
@@ -1861,7 +1861,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['4','5','6', '7'] and area_seleccionada in ['M1', 'M2']:
@@ -1871,7 +1871,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
 
@@ -1884,7 +1884,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['8', '9'] and area_seleccionada in ['S1', 'S2']:
@@ -1894,7 +1894,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['8','9'] and area_seleccionada == 'L':
@@ -1904,7 +1904,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['8', '9'] and area_seleccionada in ['M1', 'M2']:
@@ -1914,7 +1914,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
 
@@ -1927,7 +1927,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['10'] and area_seleccionada in ['S1', 'S2']:
@@ -1937,7 +1937,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['10'] and area_seleccionada == 'L':
@@ -1947,7 +1947,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['10'] and area_seleccionada in ['M1', 'M2']:
@@ -1957,7 +1957,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
 
@@ -1970,7 +1970,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['11'] and area_seleccionada in ['S1', 'S2']:
@@ -1980,7 +1980,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['11'] and area_seleccionada == 'L':
@@ -1990,7 +1990,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         if grado in ['11'] and area_seleccionada in ['M1', 'M2']:
@@ -2000,7 +2000,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
         ######################################## AQUI SE CREA EL F5 SI EL AREA ES INGLES
@@ -2012,7 +2012,7 @@ with col2:
                 notas_asi['ETAPA_ORD'] = notas_asi['etapa'].map(orden_etapas)
                 notas_asi = notas_asi.sort_values(by=['bloque', 'ETAPA_ORD'])
                 notas_asi = notas_asi.drop(columns='ETAPA_ORD')
-                lista_calificaciones = notas_asi['CALIFICACIÓN'].tolist()
+                lista_calificaciones = notas_asi['calificacion'].tolist()
                 F5_2.iloc[F5_2.index.get_loc(asignatura), :len(lista_calificaciones)] = lista_calificaciones
 
     st.subheader("Notas")
