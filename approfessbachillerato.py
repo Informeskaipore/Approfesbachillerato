@@ -1770,14 +1770,13 @@ with col1:
 
     if tabla:
         try:
-            conn = get_connection()
-            cursor = conn.cursor()
-            query = f"SELECT * FROM {tabla} ORDER BY fecha DESC"
-            cursor.execute(query)
-            data = cursor.fetchall()
-            cols = [desc[0] for desc in cursor.description]  # nombres de columnas
-            cursor.close()
-            conn.close()
+            engine = crear_engine()
+            with engine.connect() as conn:
+                # Usar text() para el query
+                query = text(f"SELECT fecha, estudiante, grado, docente,asignatura, bloque, periodo, etapa, calificacion  FROM {tabla} WHERE procesamiento = 'NO' ORDER BY fecha DESC")
+                result = conn.execute(query)
+                data = result.fetchall()
+                cols = result.keys()  # nombres de columnas
 
             # Mostrar la tabla en Streamlit
             df = pd.DataFrame(data, columns=cols)
