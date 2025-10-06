@@ -8,7 +8,7 @@ import warnings
 import matplotlib.pyplot as plt # type: ignore
 from datetime import datetime
 import pytz
-import mysql.connector
+from sqlalchemy import text
 from db_utils import crear_engine, obtener_notas_planetscale, listado_general_planetscale 
 
 #Esta nota es para verificar llave ssh
