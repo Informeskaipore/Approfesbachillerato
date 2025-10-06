@@ -2066,7 +2066,7 @@ with col2:
             asignatura = st.selectbox("Asignatura", ingles)
         else:
             asignatura = None  # En caso de que no se haya escogido área
-
+            
         # --- Otros campos ---
         bloque = st.text_input("Bloque")
         etapa = st.text_input("Etapa")
@@ -2081,7 +2081,7 @@ with col2:
             "Lenguaje": ("JULIANNA", "bachillerato_l"),
             "Ciencias 1": ("SANDRA", "bachillerato_c1"),
             "Ciencias 2": ("ANA S", "bachillerato_c2"),
-            "Ingles": ("VANESSA", "bachillerato_e1"),
+            "Inglés": ("VANESSA", "bachillerato_e1"),
         }
 
         docente, tabla = area_info.get(area, ("Desconocido", None))
