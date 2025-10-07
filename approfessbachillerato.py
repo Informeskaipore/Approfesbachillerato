@@ -2123,3 +2123,5 @@ with col2:
                     
                 except Exception as e:
                     st.error(f"Ocurrió un error: {e}")
+    notas_silvana = notas[ (notas['estudiante'] == 'TORRES RAMOS SILVANA')]
+    st.write(notas_silvana)
