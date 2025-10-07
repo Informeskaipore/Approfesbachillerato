@@ -68,8 +68,6 @@ def cargar_notas_ingles():
     return df
 
 notas = cargar_notas()
-largo_notas = len(notas)
-copia_notas = notas.copy()
 
 notas_ingles = cargar_notas_ingles()
 planeacion_primaria = cargar_planeacion()
@@ -145,14 +143,6 @@ matematicas_global = ['ARITMETICA','ALGEBRA','TRIGONOMETRIA','CALCULO','ANIMAPLA
 col1, col2 = st.columns(2)
 
 with col1:
-
-    notas_emmanuel = copia_notas[ (copia_notas['estudiante'] == 'CARRILLO MAYORGA EMANUEL OSWALDO')]
-    st.write(notas_emmanuel)
-
-    notas_silvana = copia_notas[ (copia_notas['estudiante'] == 'TORRES RAMOS SILVANA')]
-    st.write(notas_silvana)
-
-    st.write(largo_notas)
 
     # Barra de búsqueda con opciones específicas
     area_seleccionada = st.selectbox(
