@@ -69,6 +69,9 @@ def cargar_notas_ingles():
 
 notas = cargar_notas()
 
+largo_notas = len(notas)
+
+
 copia_notas = notas.copy()
 
 notas_ingles = cargar_notas_ingles()
@@ -151,6 +154,8 @@ with col1:
 
     notas_silvana = copia_notas[ (copia_notas['estudiante'] == 'TORRES RAMOS SILVANA')]
     st.write(notas_silvana)
+
+    st.write(largo_notas)
 
     # Barra de búsqueda con opciones específicas
     area_seleccionada = st.selectbox(
