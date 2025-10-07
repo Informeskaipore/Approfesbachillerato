@@ -54,7 +54,7 @@ def cargar_notas():
     df = obtener_notas_planetscale()
     df['grado'] = df['grado'].astype(str)
     df['estudiante'] = df['estudiante'].apply(corregir_nombre)
-    #df['fecha'] = pd.to_datetime(df['fecha'], errors='coerce')
+    df['fecha'] = pd.to_datetime(df['fecha'], errors='coerce')
     df = df[~df['asignatura'].isin(ingles)]
     return df
 
