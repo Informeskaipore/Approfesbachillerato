@@ -9,39 +9,18 @@ import matplotlib.pyplot as plt # type: ignore
 from datetime import datetime
 import pytz
 from sqlalchemy import text
-from db_utils import crear_engine, obtener_notas_planetscale, listado_general_planetscale 
+from db_utils import crear_engine, obtener_notas_planetscale, listado_general_planetscale , planeacion_semanal_planetscale
 
 #Esta nota es para verificar llave ssh
 st.set_page_config(layout="wide")
 
-# Enlace de descarga directa 
-url_excel_planeacion = 'https://gkinnova-my.sharepoint.com/:x:/g/personal/manuela_gutierrez_gimnasiokaipore_com/EY4Dg1oyrWBIlzQSB6NVjnEB17gVB5324RNAKs4qMRhdSA?e=IXuEc2&download=1'
 
 ingles = ['INGLES LISTENING','INGLES READING','INGLES SPEAKING', 'INGLES WRITING']
 
+
+
 def cargar_listado():
     df = listado_general_planetscale()
-    df['grado'] = df['grado'].astype(str)
-    df['estudiante'] = df['estudiante'].apply(corregir_nombre)
-    df.loc[df['estudiante'] == 'ACOSTA CASTANEDA JUAN CARLOS', 'grado'] = '6'
-    df.loc[df['estudiante'] == 'ELVIRA DUARTE SARAH', 'grado'] = '6'
-    df.loc[df['estudiante'] == 'MEDINA USECHE ANTONIO JOSE', 'grado'] = '6'
-    df.loc[df['estudiante'] == 'OLAYA GONZALEZ CHRISTOPHER', 'grado'] = '6'
-    df.loc[df['estudiante'] == 'PALMA ESTRADA JOSE MIGUEL', 'grado'] = '6'
-    df.loc[df['estudiante'] == 'RIOS LUGO JUAN DIEGO', 'grado'] = '6'
-    df.loc[df['estudiante'] == 'VILLAMIL GUANCHEZ AMANDA ISABEL', 'grado'] = '6'
-    df.loc[df['estudiante'] == 'YANDUM BAUTISTA ANDRES FELIPE', 'grado'] = '6'
-    df = df[df['grado'].isin(['6','7','8','9','10','11'])]
-    df.loc[df['estudiante'] == 'ACOSTA CASTANEDA JUAN CARLOS', 'grado'] = '4'
-    df.loc[df['estudiante'] == 'ELVIRA DUARTE SARAH', 'grado'] = '4'
-    df.loc[df['estudiante'] == 'MEDINA USECHE ANTONIO JOSE', 'grado'] = '4'
-    df.loc[df['estudiante'] == 'OLAYA GONZALEZ CHRISTOPHER', 'grado'] = '4'
-    df.loc[df['estudiante'] == 'PALMA ESTRADA JOSE MIGUEL', 'grado'] = '4'
-    df.loc[df['estudiante'] == 'RIOS LUGO JUAN DIEGO', 'grado'] = '4'
-    df.loc[df['estudiante'] == 'VILLAMIL GUANCHEZ AMANDA ISABEL', 'grado'] = '4'
-    df.loc[df['estudiante'] == 'YANDUM BAUTISTA ANDRES FELIPE', 'grado'] = '4'
-    return df
-
 
 def cargar_planeacion():
     response = requests.get(url_excel_planeacion)
@@ -70,7 +49,8 @@ def cargar_notas_ingles():
 notas = cargar_notas()
 
 notas_ingles = cargar_notas_ingles()
-planeacion_primaria = cargar_planeacion()
+planeacion_bachillerato = planeacion_semanal_planetscale('bachillerato')
+planeacion_bachillerato.insert(1, 'ingles', 'x') #Se agrega columna ingles despues de estudiante porque el codigo para generar F1's lee por ubicacion de columna
 estudiantes = cargar_listado()
 
 notas['grado'] = notas['grado'].astype(str)
@@ -156,16 +136,16 @@ with col1:
 
 
         #Lista de modulos
-        LMOD1l = ["LMOD1"] + planeacion_primaria[planeacion_primaria.iloc[:, 2] == area_seleccionada].iloc[:, 0].tolist()
-        LMOD2l = ["LMOD2"] + planeacion_primaria[planeacion_primaria.iloc[:, 7] == area_seleccionada].iloc[:, 0].tolist()
-        MMOD1l = ["MMOD1"] + planeacion_primaria[planeacion_primaria.iloc[:, 3] == area_seleccionada].iloc[:, 0].tolist()
-        MMOD2l = ["MMOD2"] + planeacion_primaria[planeacion_primaria.iloc[:, 8] == area_seleccionada].iloc[:, 0].tolist()
-        WMOD1l = ["WMOD1"] + planeacion_primaria[planeacion_primaria.iloc[:, 4] == area_seleccionada].iloc[:, 0].tolist()
-        WMOD2l = ["WMOD2"] + planeacion_primaria[planeacion_primaria.iloc[:, 9] == area_seleccionada].iloc[:, 0].tolist()
-        JMOD1l = ["JMOD1"] + planeacion_primaria[planeacion_primaria.iloc[:, 5] == area_seleccionada].iloc[:, 0].tolist()
-        JMOD2l = ["JMOD2"] + planeacion_primaria[planeacion_primaria.iloc[:, 10] == area_seleccionada].iloc[:, 0].tolist()
-        VMOD1l = ["VMOD1"] + planeacion_primaria[planeacion_primaria.iloc[:, 6] == area_seleccionada].iloc[:, 0].tolist()
-        VMOD2l = ["VMOD2"] + planeacion_primaria[planeacion_primaria.iloc[:, 11] == area_seleccionada].iloc[:, 0].tolist()
+        LMOD1l = ["LMOD1"] + planeacion_bachillerato[planeacion_bachillerato.iloc[:, 2] == area_seleccionada].iloc[:, 0].tolist()
+        LMOD2l = ["LMOD2"] + planeacion_bachillerato[planeacion_bachillerato.iloc[:, 7] == area_seleccionada].iloc[:, 0].tolist()
+        MMOD1l = ["MMOD1"] + planeacion_bachillerato[planeacion_bachillerato.iloc[:, 3] == area_seleccionada].iloc[:, 0].tolist()
+        MMOD2l = ["MMOD2"] + planeacion_bachillerato[planeacion_bachillerato.iloc[:, 8] == area_seleccionada].iloc[:, 0].tolist()
+        WMOD1l = ["WMOD1"] + planeacion_bachillerato[planeacion_bachillerato.iloc[:, 4] == area_seleccionada].iloc[:, 0].tolist()
+        WMOD2l = ["WMOD2"] + planeacion_bachillerato[planeacion_bachillerato.iloc[:, 9] == area_seleccionada].iloc[:, 0].tolist()
+        JMOD1l = ["JMOD1"] + planeacion_bachillerato[planeacion_bachillerato.iloc[:, 5] == area_seleccionada].iloc[:, 0].tolist()
+        JMOD2l = ["JMOD2"] + planeacion_bachillerato[planeacion_bachillerato.iloc[:, 10] == area_seleccionada].iloc[:, 0].tolist()
+        VMOD1l = ["VMOD1"] + planeacion_bachillerato[planeacion_bachillerato.iloc[:, 6] == area_seleccionada].iloc[:, 0].tolist()
+        VMOD2l = ["VMOD2"] + planeacion_bachillerato[planeacion_bachillerato.iloc[:, 11] == area_seleccionada].iloc[:, 0].tolist()
         
         LMOD1 = pd.DataFrame(LMOD1l)
         LMOD2 = pd.DataFrame(LMOD2l)
@@ -830,14 +810,14 @@ with col1:
             adicionar = ['LIC-M1','OLIMPIADAS','SIMULACRO-M1','PG-M1']
             for excepcion in adicionar:
                 # Buscar en qué columnas aparece exactamente el valor de la variable 'excepcion'
-                mask = planeacion_primaria.apply(lambda col: col == excepcion)
+                mask = planeacion_bachillerato.apply(lambda col: col == excepcion)
                 columnas_con_valor = mask.any(axis=0)
                 #poner en una lista las columnas que tienen el valor de excepcion
                 columnas_resultado = columnas_con_valor[columnas_con_valor].index.tolist()
                 #para cada columna en la que aprecio la excepcion hacer el filtrado y poner la lista de estudiantes
                 for columna in columnas_resultado:
                     if columna == 'L':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD1"][0]
@@ -849,7 +829,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'L.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD2"][0]
@@ -861,7 +841,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD1"][0]
@@ -873,7 +853,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD2"][0]
@@ -885,7 +865,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD1"][0]
@@ -897,7 +877,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD2"][0]
@@ -909,7 +889,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD1"][0]
@@ -921,7 +901,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD2"][0]
@@ -933,7 +913,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD1"][0]
@@ -945,7 +925,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD2"][0]
@@ -961,14 +941,14 @@ with col1:
             adicionar = ['LIC-M2','OLIMPIADAS','SIMULACRO-M2','PG-M2','SABER-M2']
             for excepcion in adicionar:
                 # Buscar en qué columnas aparece exactamente el valor de la variable 'excepcion'
-                mask = planeacion_primaria.apply(lambda col: col == excepcion)
+                mask = planeacion_bachillerato.apply(lambda col: col == excepcion)
                 columnas_con_valor = mask.any(axis=0)
                 #poner en una lista las columnas que tienen el valor de excepcion
                 columnas_resultado = columnas_con_valor[columnas_con_valor].index.tolist()
                 #para cada columna en la que aprecio la excepcion hacer el filtrado y poner la lista de estudiantes
                 for columna in columnas_resultado:
                     if columna == 'L':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD1"][0]
@@ -980,7 +960,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'L.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD2"][0]
@@ -992,7 +972,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD1"][0]
@@ -1004,7 +984,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD2"][0]
@@ -1016,7 +996,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD1"][0]
@@ -1028,7 +1008,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD2"][0]
@@ -1040,7 +1020,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD1"][0]
@@ -1052,7 +1032,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD2"][0]
@@ -1064,7 +1044,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD1"][0]
@@ -1076,7 +1056,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD2"][0]
@@ -1095,14 +1075,14 @@ with col1:
             adicionar = ['LIC-C2','SIMULACRO-C2','PG-C2','SABER-C2']
             for excepcion in adicionar:
                 # Buscar en qué columnas aparece exactamente el valor de la variable 'excepcion'
-                mask = planeacion_primaria.apply(lambda col: col == excepcion)
+                mask = planeacion_bachillerato.apply(lambda col: col == excepcion)
                 columnas_con_valor = mask.any(axis=0)
                 #poner en una lista las columnas que tienen el valor de excepcion
                 columnas_resultado = columnas_con_valor[columnas_con_valor].index.tolist()
                 #para cada columna en la que aprecio la excepcion hacer el filtrado y poner la lista de estudiantes
                 for columna in columnas_resultado:
                     if columna == 'L':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD1"][0]
@@ -1114,7 +1094,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'L.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD2"][0]
@@ -1126,7 +1106,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD1"][0]
@@ -1138,7 +1118,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD2"][0]
@@ -1150,7 +1130,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD1"][0]
@@ -1162,7 +1142,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD2"][0]
@@ -1174,7 +1154,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD1"][0]
@@ -1186,7 +1166,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD2"][0]
@@ -1198,7 +1178,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD1"][0]
@@ -1210,7 +1190,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD2"][0]
@@ -1226,14 +1206,14 @@ with col1:
             adicionar = ['LIC-C1','SIMULACRO-C1','PG-C1']
             for excepcion in adicionar:
                 # Buscar en qué columnas aparece exactamente el valor de la variable 'excepcion'
-                mask = planeacion_primaria.apply(lambda col: col == excepcion)
+                mask = planeacion_bachillerato.apply(lambda col: col == excepcion)
                 columnas_con_valor = mask.any(axis=0)
                 #poner en una lista las columnas que tienen el valor de excepcion
                 columnas_resultado = columnas_con_valor[columnas_con_valor].index.tolist()
                 #para cada columna en la que aprecio la excepcion hacer el filtrado y poner la lista de estudiantes
                 for columna in columnas_resultado:
                     if columna == 'L':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD1"][0]
@@ -1245,7 +1225,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'L.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD2"][0]
@@ -1257,7 +1237,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD1"][0]
@@ -1269,7 +1249,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD2"][0]
@@ -1281,7 +1261,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD1"][0]
@@ -1293,7 +1273,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD2"][0]
@@ -1305,7 +1285,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD1"][0]
@@ -1317,7 +1297,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD2"][0]
@@ -1329,7 +1309,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD1"][0]
@@ -1341,7 +1321,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD2"][0]
@@ -1358,14 +1338,14 @@ with col1:
             adicionar = ['LIC-S1','KAIPOMUN','SIMONU','PG-S1']
             for excepcion in adicionar:
                 # Buscar en qué columnas aparece exactamente el valor de la variable 'excepcion'
-                mask = planeacion_primaria.apply(lambda col: col == excepcion)
+                mask = planeacion_bachillerato.apply(lambda col: col == excepcion)
                 columnas_con_valor = mask.any(axis=0)
                 #poner en una lista las columnas que tienen el valor de excepcion
                 columnas_resultado = columnas_con_valor[columnas_con_valor].index.tolist()
                 #para cada columna en la que aprecio la excepcion hacer el filtrado y poner la lista de estudiantes
                 for columna in columnas_resultado:
                     if columna == 'L':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD1"][0]
@@ -1377,7 +1357,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'L.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD2"][0]
@@ -1389,7 +1369,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD1"][0]
@@ -1401,7 +1381,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD2"][0]
@@ -1413,7 +1393,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD1"][0]
@@ -1425,7 +1405,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD2"][0]
@@ -1437,7 +1417,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD1"][0]
@@ -1449,7 +1429,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD2"][0]
@@ -1461,7 +1441,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD1"][0]
@@ -1473,7 +1453,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD2"][0]
@@ -1489,14 +1469,14 @@ with col1:
             adicionar = ['LIC-S2','KAIPOMUN','SIMONU','PG-S2','SABER-S2']
             for excepcion in adicionar:
                 # Buscar en qué columnas aparece exactamente el valor de la variable 'excepcion'
-                mask = planeacion_primaria.apply(lambda col: col == excepcion)
+                mask = planeacion_bachillerato.apply(lambda col: col == excepcion)
                 columnas_con_valor = mask.any(axis=0)
                 #poner en una lista las columnas que tienen el valor de excepcion
                 columnas_resultado = columnas_con_valor[columnas_con_valor].index.tolist()
                 #para cada columna en la que aprecio la excepcion hacer el filtrado y poner la lista de estudiantes
                 for columna in columnas_resultado:
                     if columna == 'L':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD1"][0]
@@ -1508,7 +1488,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'L.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD2"][0]
@@ -1520,7 +1500,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD1"][0]
@@ -1532,7 +1512,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD2"][0]
@@ -1544,7 +1524,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD1"][0]
@@ -1556,7 +1536,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD2"][0]
@@ -1568,7 +1548,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD1"][0]
@@ -1580,7 +1560,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD2"][0]
@@ -1592,7 +1572,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD1"][0]
@@ -1604,7 +1584,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD2"][0]
@@ -1620,14 +1600,14 @@ with col1:
             adicionar = ['LIC-L','SABER-L','PG-L']
             for excepcion in adicionar:
                 # Buscar en qué columnas aparece exactamente el valor de la variable 'excepcion'
-                mask = planeacion_primaria.apply(lambda col: col == excepcion)
+                mask = planeacion_bachillerato.apply(lambda col: col == excepcion)
                 columnas_con_valor = mask.any(axis=0)
                 #poner en una lista las columnas que tienen el valor de excepcion
                 columnas_resultado = columnas_con_valor[columnas_con_valor].index.tolist()
                 #para cada columna en la que aprecio la excepcion hacer el filtrado y poner la lista de estudiantes
                 for columna in columnas_resultado:
                     if columna == 'L':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD1"][0]
@@ -1639,7 +1619,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'L.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "LMOD2"][0]
@@ -1651,7 +1631,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD1"][0]
@@ -1663,7 +1643,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'M.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "MMOD2"][0]
@@ -1675,7 +1655,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD1"][0]
@@ -1687,7 +1667,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'W.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "WMOD2"][0]
@@ -1699,7 +1679,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD1"][0]
@@ -1711,7 +1691,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'J.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "JMOD2"][0]
@@ -1723,7 +1703,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD1"][0]
@@ -1735,7 +1715,7 @@ with col1:
                         insertar[4] = excepcion
                         df_horario = pd.concat ([parte_1, insertar, parte_2], ignore_index = True)
                     if columna == 'V.1':
-                        lista_del_modulo = planeacion_primaria[planeacion_primaria[f'{columna}']== excepcion]
+                        lista_del_modulo = planeacion_bachillerato[planeacion_bachillerato[f'{columna}']== excepcion]
                         primera_columna = lista_del_modulo.iloc[:, 0].tolist()
                         #buscar donde aparece LMOD1
                         idx = df_horario.index[df_horario.iloc[:, 0] == "VMOD2"][0]
