@@ -17,17 +17,6 @@ st.set_page_config(layout="wide")
 
 ingles = ['INGLES LISTENING','INGLES READING','INGLES SPEAKING', 'INGLES WRITING']
 
-
-
-def cargar_listado():
-    df = listado_general_planetscale()
-
-def cargar_planeacion():
-    response = requests.get(url_excel_planeacion)
-    response.raise_for_status()  # Lanza error si hay HTTP 403/404/500
-    df = pd.read_excel(BytesIO(response.content), sheet_name='bachillerato')
-    return df
-
 @st.cache_data
 def cargar_notas():
     df = obtener_notas_planetscale()
@@ -51,7 +40,7 @@ notas = cargar_notas()
 notas_ingles = cargar_notas_ingles()
 planeacion_bachillerato = planeacion_semanal_planetscale('bachillerato')
 planeacion_bachillerato.insert(1, 'ingles', 'x') #Se agrega columna ingles despues de estudiante porque el codigo para generar F1's lee por ubicacion de columna
-estudiantes = cargar_listado()
+estudiantes = listado_general_planetscale()
 
 notas['grado'] = notas['grado'].astype(str)
 notas['estudiante'] = notas['estudiante'].apply(corregir_nombre)
