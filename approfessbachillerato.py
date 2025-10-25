@@ -41,6 +41,8 @@ notas_ingles = cargar_notas_ingles()
 planeacion_bachillerato = planeacion_semanal_planetscale('bachillerato')
 planeacion_bachillerato.insert(1, 'ingles', 'x') #Se agrega columna ingles despues de estudiante porque el codigo para generar F1's lee por ubicacion de columna
 estudiantes = listado_general_planetscale()
+estudiantes['grado'] = estudiantes['grado'].astype(str)
+estudiantes['estudiante'] = estudiantes['estudiante'].apply(corregir_nombre)
 
 notas['grado'] = notas['grado'].astype(str)
 notas['estudiante'] = notas['estudiante'].apply(corregir_nombre)
