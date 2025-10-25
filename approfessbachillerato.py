@@ -341,7 +341,7 @@ with col1:
                 
                     
                 bloques = ['A', 'B', 'C', 'D']
-                asignaturas = ['Biología', 'QUIMICA', 'MEDIO AMBIENTE', 'FISICA']
+                asignaturas = ['BIOLOGIA', 'QUIMICA', 'MEDIO AMBIENTE', 'FISICA']
                 asignaturas_11 = ['QUIMICA', 'MEDIO AMBIENTE', 'FISICA']
 
                 for bloque in bloques:
@@ -452,7 +452,7 @@ with col1:
             
                         
                 bloques = ['A', 'B', 'C', 'D']
-                asignaturas = ['Historia', 'Geografía', 'CIENCIAS ECONOMICAS', 'Participación política','CIENCIAS POLITICAS','FILOSOFIA']
+                asignaturas = ['HISTORIA', 'GEOGRAFIA', 'CIENCIAS ECONOMICAS', 'PARTICIPACION POLITICA','CIENCIAS POLITICAS','FILOSOFIA']
 
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['bloque'] == bloque ]
@@ -571,7 +571,7 @@ with col1:
             
                         
                 bloques = ['A', 'B', 'C', 'D']
-                asignaturas = ['Historia', 'Geografía', 'CIENCIAS ECONOMICAS', 'Participación política','CIENCIAS POLITICAS','FILOSOFIA']
+                asignaturas = ['HISTORIA', 'GEOGRAFIA', 'CIENCIAS ECONOMICAS', 'PARTICIPACION POLITICA','CIENCIAS POLITICAS','FILOSOFIA']
 
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['bloque'] == bloque ]
@@ -686,9 +686,9 @@ with col1:
                 
                     
                 bloques = ['A', 'B', 'C', 'D']
-                asignaturas_6_7_8_9 = ['Comunicación y SISTEMAS simbólicos', 'Producción e interpretación de textos']
-                asignaturas_10_11 = ['Comunicación y SISTEMAS simbólicos', 'Producción e interpretación de textos','METODOLOGIA']
-                asignaturas = ['Comunicación y SISTEMAS simbólicos', 'Producción e interpretación de textos','METODOLOGIA']
+                asignaturas_6_7_8_9 = ['COMUNICACION Y SISTEMAS SIMBOLICOS', 'PRODUCCION E INTERPRETACION DE TEXTOS']
+                asignaturas_10_11 = ['COMUNICACION Y SISTEMAS SIMBOLICOS', 'PRODUCCION E INTERPRETACION DE TEXTOS','METODOLOGIA']
+                asignaturas = ['COMUNICACION Y SISTEMAS SIMBOLICOS', 'PRODUCCION E INTERPRETACION DE TEXTOS','METODOLOGIA']
 
                 for bloque in bloques:
                     notas_bloque_completo = notas_estudiante[notas_estudiante['bloque'] == bloque ]
